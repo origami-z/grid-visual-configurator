@@ -1,0 +1,22 @@
+.App {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+.LeftColumn {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.LeftColumn-TopPanel {
+  flex: 1;
+}
+.LeftColumn-BottomPanel {
+  border-top: 1px solid black;
+  flex: 1;
+}
+.RightColumn {
+  border-left: 1px solid black;
+  flex: 1;
+}
