@@ -4,7 +4,7 @@ import {
   FORMATTER_EDITOR_KEYS,
   FORMATTER_EDITOR_KEY_PREFIX,
   FORMATTER_EDITOR_MAP,
-} from "./FormatterEditor";
+} from "./Formatters";
 import { FIELD_TYPE, VALUE_FORMATTER_TYPE } from "./Grid";
 
 import "./GridEditor.css";
