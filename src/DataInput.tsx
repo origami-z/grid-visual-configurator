@@ -1,4 +1,5 @@
 import { useState, ChangeEventHandler, useEffect } from "react";
+import "./DataInput.css";
 
 const defaultRowData = [
   { make: "Toyota", model: "Celica", price: 35000 },
@@ -34,14 +35,13 @@ export const DataInput = (props: {
   };
 
   return (
-    <label>
+    <label className="DataInput">
       Input data JSON {parsedJson === null ? "ERROR" : "OK"}
       <br />
       <textarea
         value={textInput}
         onChange={handleChange}
-        cols={100}
-        rows={20}
+        className="DataInput-textarea"
       />
     </label>
   );
