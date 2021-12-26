@@ -4,7 +4,14 @@ import "./ColDefEditor.css";
 import { FIELD_TYPE, GRID_COMPOSER_MAP } from "./Composers/Grid";
 import { GRID_EDITOR_MAP } from "./Composers/GridEditor";
 
-const defaultColDefs = [
+export interface GenericFieldComposer {
+  type: string;
+  [key: string]: any;
+}
+
+export type GenericColDef = GenericFieldComposer[];
+
+const defaultColDefs: GenericColDef[] = [
   [{ type: FIELD_TYPE, field: "make" }],
   [{ type: FIELD_TYPE, field: "model" }],
   [{ type: FIELD_TYPE, field: "price" }],
@@ -13,7 +20,7 @@ const defaultColDefs = [
 export const ColDefEditor = (props: {
   onColDefsChange?: (newColDefs: any[]) => void;
 }) => {
-  const [colDefs, setColDefs] = useState<any[]>(defaultColDefs);
+  const [colDefs, setColDefs] = useState(defaultColDefs);
 
   useEffect(() => {
     // compute colDef
