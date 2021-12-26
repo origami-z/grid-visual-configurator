@@ -33,8 +33,8 @@ export const ColDefEditor = (props: {
 
   useEffect(() => {
     // compute colDef when value in editors change
-    const newComputedColDef = colDefs.map((colDef) => {
-      let result = {};
+    const newComputedColDef = colDefs.map((colDef, colDefIndex) => {
+      let result: any = {};
       colDef.map((composer) => {
         switch (composer.type) {
           case FIELD_TYPE:
@@ -53,8 +53,6 @@ export const ColDefEditor = (props: {
       });
       return result;
     });
-
-    console.log({ newComputedColDef });
     props.onColDefsChange?.(newComputedColDef);
   }, [colDefs]);
 
@@ -109,6 +107,7 @@ export const ColDefEditor = (props: {
       <div key={columnIndex}>
         <div>Column {columnIndex + 1}</div>
         {colDef.map((composer, composerIndex) => {
+          const key = `column-${columnIndex}-editor-${composerIndex}`;
           switch (composer.type) {
             case FIELD_TYPE:
               const onFieldChange = (newField: string) => {
@@ -126,7 +125,7 @@ export const ColDefEditor = (props: {
               };
               return createElement(GRID_EDITOR_MAP[composer.type], {
                 ...composer,
-                key: `column-${columnIndex}-editor-${composerIndex}`,
+                key,
                 onFieldChange,
               });
             case VALUE_FORMATTER_TYPE:
@@ -134,8 +133,18 @@ export const ColDefEditor = (props: {
                 setColDefs((prevColDefs) =>
                   prevColDefs.map((prevColDef, prevColDefIndex) => {
                     if (prevColDefIndex === columnIndex) {
-                      const newColDef = [...prevColDef];
-                      newColDef[composerIndex].formatter = newFormatter;
+                      const newColDef = prevColDef.map(
+                        (prevComp, prevCompIndex) => {
+                          if (prevCompIndex === composerIndex) {
+                            return {
+                              ...prevComp,
+                              formatter: newFormatter,
+                            };
+                          } else {
+                            return prevComp;
+                          }
+                        }
+                      );
                       return newColDef;
                     } else {
                       return prevColDef;
@@ -145,7 +154,7 @@ export const ColDefEditor = (props: {
               };
               return createElement(GRID_EDITOR_MAP[composer.type], {
                 ...composer,
-                key: `column-${columnIndex}-editor-${composerIndex}`,
+                key,
                 onFormatterChange,
               });
             default:

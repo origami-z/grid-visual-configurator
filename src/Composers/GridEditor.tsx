@@ -113,7 +113,7 @@ export const ValueFormatterEditor = (props: {
         >
           X
         </Button>
-        {createElement(FORMATTER_EDITOR_MAP[ftType].editor, {
+        {createElement(FORMATTER_EDITOR_MAP[ftType].editor as any, {
           ...f.params,
           onChange,
         })}
