@@ -7,18 +7,16 @@ export const FieldComposer = <T extends {}>(input: T, field: string) => ({
   field,
 });
 
-export const ValueFormatterComposer = <T extends {}>(input: T, formatters: ((value: any) => any)[]): T & { valueFormatter: ValueFormatterFunc } => ({
+export const VALUE_FORMATTER_TYPE = 'Grid.ValueFormatter' as const;
+export const ValueFormatterComposer = <T extends {}>(input: T, formatter: (value: any) => any): T & { valueFormatter: ValueFormatterFunc } => ({
   ...input,
   valueFormatter: param => {
-    let outputValue = param.value;
-    for (let i = 0; i < formatters.length; i++) {
-      const formatter = formatters[i];
-      outputValue = formatter(outputValue)
-    }
-    return outputValue
+    return formatter(param.value)
   },
 });
 
 export const GRID_COMPOSER_MAP = {
   [FIELD_TYPE]: FieldComposer,
+  [VALUE_FORMATTER_TYPE]: ValueFormatterComposer
 };
+

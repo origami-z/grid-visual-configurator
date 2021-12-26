@@ -23,7 +23,11 @@ export const GridResult = (props: {
 
   return (
     <div className="ag-theme-alpine" style={{ height: 400, width: 600 }}>
-      <AgGridReact columnDefs={props.columnDefs} rowData={props.rowData} />
+      <AgGridReact
+        columnDefs={props.columnDefs}
+        rowData={props.rowData}
+        reactUi
+      />
     </div>
   );
 };
