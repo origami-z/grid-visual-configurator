@@ -1,22 +1,19 @@
 import { ValueFormatterFunc } from "ag-grid-community";
-import { AgGridReact } from "ag-grid-react";
-
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
-import {
-  FieldComposerParam,
-  FIELD_TYPE,
-  GenericColDescriptor,
-  ValueFormatterComposerParam,
-  VALUE_FORMATTER_TYPE,
-} from "../Composers/GridEditor";
+import { AgGridReact } from "ag-grid-react";
 import {
   DIVIDE_BY_THOUSAND_TYPE,
+  FieldComposerParam,
+  FIELD_TYPE,
   FixedDecimalPlacesParam,
   FIXED_DECIMAL_PLACES_TYPE,
+  GenericColDescriptor,
   SuffixByParam,
   SUFFIX_BY_TYPE,
-} from "../Composers/Formatters";
+  ValueFormatterComposerParam,
+  VALUE_FORMATTER_TYPE,
+} from "../Composers";
 
 const fixedDecimalPlacesConverter =
   (param: FixedDecimalPlacesParam) => (input: string) =>

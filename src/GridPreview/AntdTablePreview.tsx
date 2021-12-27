@@ -1,18 +1,16 @@
 import { Table } from "antd";
 import {
+  DIVIDE_BY_THOUSAND_TYPE,
   FieldComposerParam,
   FIELD_TYPE,
-  GenericColDescriptor,
-  ValueFormatterComposerParam,
-  VALUE_FORMATTER_TYPE,
-} from "../Composers/GridEditor";
-import {
-  DIVIDE_BY_THOUSAND_TYPE,
   FixedDecimalPlacesParam,
   FIXED_DECIMAL_PLACES_TYPE,
+  GenericColDescriptor,
   SuffixByParam,
   SUFFIX_BY_TYPE,
-} from "../Composers/Formatters";
+  ValueFormatterComposerParam,
+  VALUE_FORMATTER_TYPE,
+} from "../Composers";
 
 const fixedDecimalPlacesConverter =
   (param: FixedDecimalPlacesParam) => (input: string) =>

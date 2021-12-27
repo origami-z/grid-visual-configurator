@@ -6,7 +6,7 @@ import {
   FIELD_TYPE,
   GenericColDescriptor,
   GRID_EDITOR_MAP_TYPE_KEY,
-} from "./Composers/GridEditor";
+} from "./Composers";
 import { DataInput } from "./DataInput";
 import { AgGridPreview } from "./GridPreview/AgGridPreview";
 import { AntdTablePreview } from "./GridPreview/AntdTablePreview";
