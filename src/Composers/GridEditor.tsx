@@ -64,7 +64,7 @@ export interface ValueFormatterDescriptor {
 }
 export const ValueFormatterEditor = ({
   param = { formatterDescriptors: [] },
-  onParamChange,
+  onParamChange: onValueFormatterParamChange,
 }: {
   param?: ValueFormatterComposerParam;
   onParamChange?: (newParam: ValueFormatterComposerParam) => void;
@@ -72,7 +72,7 @@ export const ValueFormatterEditor = ({
   const handleNewFormatter: MenuProps["onClick"] = (e) => {
     const selectedKey = (FORMATTER_EDITOR_KEY_PREFIX +
       e.key) as keyof typeof FORMATTER_EDITOR_MAP;
-    onParamChange?.({
+    onValueFormatterParamChange?.({
       formatterDescriptors: [
         ...param.formatterDescriptors,
         FORMATTER_EDITOR_MAP[selectedKey].defaultKey,
@@ -100,7 +100,7 @@ export const ValueFormatterEditor = ({
   const formatterRenderers = param.formatterDescriptors.map((f) => {
     const ftType = f.type;
     const onParamChange = (newParam: any) => {
-      onParamChange?.({
+      onValueFormatterParamChange?.({
         formatterDescriptors: param.formatterDescriptors.map((formatter) => {
           if (formatter.type === ftType) {
             return { ...formatter, param: newParam };
@@ -115,7 +115,7 @@ export const ValueFormatterEditor = ({
         <Button
           aria-label="remove formatter"
           onClick={() =>
-            onParamChange({
+            onValueFormatterParamChange?.({
               formatterDescriptors: param.formatterDescriptors.filter(
                 (formatter) => formatter.type !== ftType
               ),

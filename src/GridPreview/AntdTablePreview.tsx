@@ -36,7 +36,6 @@ const FieldComposer = <T extends {}>(input: T, param: FieldComposerParam) => ({
   ...input,
   // Default title to field, Use header title composer to override
   title: param.field,
-  key: param.field,
   dataIndex: param.field,
 });
 
@@ -94,7 +93,7 @@ export const AntdTablePreview = (props: {
     <div style={{ flex: 1 }}>
       <Table
         columns={colDefFromColDescriptors}
-        dataSource={props.rowData || []}
+        dataSource={(props.rowData || []).map((d, i) => ({ ...d, key: i }))}
       />
     </div>
   );
