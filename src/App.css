@@ -25,6 +25,7 @@
 }
 .RightColumn-TopPanel {
   flex: 2;
+  display: flex;
 }
 .RightColumn-BottomPanel {
   border-top: 1px solid black;

@@ -1,3 +1,4 @@
+import { Radio } from "antd";
 import { useState } from "react";
 import "./App.css";
 import { ColDefEditor } from "./ColDefEditor";
@@ -7,7 +8,8 @@ import {
   GRID_EDITOR_MAP_TYPE_KEY,
 } from "./Composers/GridEditor";
 import { DataInput } from "./DataInput";
-import { GridResult } from "./GridResult";
+import { AgGridPreview } from "./GridPreview/AgGridPreview";
+import { AntdTablePreview } from "./GridPreview/AntdTablePreview";
 
 const defaultColDescriptor: GenericColDescriptor[] = [
   [{ type: FIELD_TYPE, param: { field: "make" } }],
@@ -15,10 +17,19 @@ const defaultColDescriptor: GenericColDescriptor[] = [
   [{ type: FIELD_TYPE, param: { field: "price" } }],
 ];
 
+const gridPreviewOptions = ["ag-grid", "antd table"];
+
 function App() {
   const [rowData, setRowData] = useState<any[] | null>([]);
   const [colDescriptors, setColDescriptors] =
     useState<GenericColDescriptor[]>(defaultColDescriptor);
+  const [previewOpt, setPreviewOpt] = useState(gridPreviewOptions[0]);
+  const previewGrid =
+    previewOpt === "ag-grid" ? (
+      <AgGridPreview rowData={rowData} colDescriptors={colDescriptors} />
+    ) : (
+      <AntdTablePreview rowData={rowData} colDescriptors={colDescriptors} />
+    );
   return (
     <div className="App">
       <div className="LeftColumn">
@@ -33,11 +44,15 @@ function App() {
         </div>
       </div>
       <div className="RightColumn">
-        <div className="RightColumn-TopPanel">
-          <GridResult rowData={rowData} colDescriptors={colDescriptors} />
-        </div>
+        <div className="RightColumn-TopPanel">{previewGrid}</div>
         <div className="RightColumn-BottomPanel">
-          {JSON.stringify(colDescriptors)}
+          <Radio.Group
+            aria-label="grid preview"
+            options={gridPreviewOptions}
+            onChange={(e) => setPreviewOpt(e.target.value)}
+            value={previewOpt}
+          />
+          <div>{JSON.stringify(colDescriptors)}</div>
         </div>
       </div>
     </div>

@@ -1,6 +1,5 @@
-import { ValueFormatterFunc } from "ag-grid-community";
 import { Menu, Dropdown, Button, MenuProps } from "antd";
-import { useEffect, useState, createElement } from "react";
+import { createElement } from "react";
 import {
   FORMATTER_EDITOR_KEYS,
   FORMATTER_EDITOR_KEY_PREFIX,
@@ -24,14 +23,7 @@ export interface FieldComposerDescriptor {
   type: typeof FIELD_TYPE;
   param: FieldComposerParam;
 }
-export const FieldComposer = <T extends {}>(
-  input: T,
-  param: FieldComposerParam
-) => ({
-  ...input,
-  field: param.field,
-});
-const DefaultFieldComposer: FieldComposerDescriptor = {
+const FieldDefaultDescriptor: FieldComposerDescriptor = {
   type: FIELD_TYPE,
   param: { field: "" },
 };
@@ -62,29 +54,7 @@ export interface ValueFormatterComposerDescriptor {
   type: typeof VALUE_FORMATTER_TYPE;
   param: ValueFormatterComposerParam;
 }
-export const ValueFormatterComposer = <T extends {}>(
-  input: T,
-  { formatterDescriptors }: ValueFormatterComposerParam
-): T & { valueFormatter: ValueFormatterFunc } => {
-  const descriptorToFormatter = (input: any) => {
-    let outputValue = input;
-    for (let i = 0; i < formatterDescriptors.length; i++) {
-      const ftType = formatterDescriptors[i].type;
-      const formatterFn = FORMATTER_EDITOR_MAP[ftType].converter(
-        formatterDescriptors[i].param
-      );
-      outputValue = formatterFn(outputValue);
-    }
-    return outputValue;
-  };
-  return {
-    ...input,
-    valueFormatter: (valueFormatterParam) => {
-      return descriptorToFormatter(valueFormatterParam.value);
-    },
-  };
-};
-const DefaultValueFormatterComposer: ValueFormatterComposerDescriptor = {
+const ValueFormatterDefaultDescriptor: ValueFormatterComposerDescriptor = {
   type: VALUE_FORMATTER_TYPE,
   param: { formatterDescriptors: [] },
 };
@@ -177,14 +147,12 @@ export const ValueFormatterEditor = ({
 
 export const GRID_EDITOR_MAP = {
   [FIELD_TYPE]: {
-    defaultDescriptor: DefaultFieldComposer,
+    defaultDescriptor: FieldDefaultDescriptor,
     editor: FieldEditor,
-    composer: FieldComposer,
   },
   [VALUE_FORMATTER_TYPE]: {
-    defaultDescriptor: DefaultValueFormatterComposer,
+    defaultDescriptor: ValueFormatterDefaultDescriptor,
     editor: ValueFormatterEditor,
-    composer: ValueFormatterComposer,
   },
 };
 export type GRID_EDITOR_MAP_TYPE_KEY = keyof typeof GRID_EDITOR_MAP;
