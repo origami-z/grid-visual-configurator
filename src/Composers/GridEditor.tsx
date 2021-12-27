@@ -9,6 +9,13 @@ import {
 
 import "./GridEditor.css";
 
+export interface GenericFieldComposer {
+  type: GRID_EDITOR_MAP_TYPE_KEY;
+  param?: any;
+}
+
+export type GenericColDescriptor = GenericFieldComposer[];
+
 export const FIELD_TYPE = "Grid.Field" as const;
 export interface FieldComposerParam {
   field?: string;
@@ -107,7 +114,7 @@ export const ValueFormatterEditor = (props: {
   );
 
   useEffect(() => {
-    const newFormatter = (input: any) => {
+    const descriptorToFormatter = (input: any) => {
       let outputValue = input;
       for (let i = 0; i < formatterArray.length; i++) {
         const ftType = formatterArray[i].type;
@@ -118,7 +125,7 @@ export const ValueFormatterEditor = (props: {
       }
       return outputValue;
     };
-    props.onParamChange?.({ formatter: newFormatter });
+    props.onParamChange?.({ formatter: descriptorToFormatter });
   }, [formatterArray]);
 
   const formatterRenderers = formatterArray.map((f) => {

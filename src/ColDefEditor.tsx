@@ -1,46 +1,27 @@
 import { Button, Dropdown, Menu, MenuProps } from "antd";
-import { createElement, useEffect, useState } from "react";
+import {
+  createElement,
+  useEffect,
+  useState,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import "./ColDefEditor.css";
 import {
   FIELD_TYPE,
+  GenericColDescriptor,
   GRID_EDITOR_MAP,
   GRID_EDITOR_MAP_TYPE_KEY,
   VALUE_FORMATTER_TYPE,
 } from "./Composers/GridEditor";
 
-export interface GenericFieldComposer {
-  type: GRID_EDITOR_MAP_TYPE_KEY;
-  param?: any;
-}
-
-export type GenericColDescriptor = GenericFieldComposer[];
-
-const defaultColDefs: GenericColDescriptor[] = [
-  [{ type: FIELD_TYPE, param: { field: "make" } }],
-  [{ type: FIELD_TYPE, param: { field: "model" } }],
-  [{ type: FIELD_TYPE, param: { field: "price" } }],
-];
-
-export const ColDefEditor = (props: {
-  onColDefsChange?: (newColDefs: any[]) => void;
+export const ColDefEditor = ({
+  colDescriptors,
+  setColDescriptors,
+}: {
+  colDescriptors: GenericColDescriptor[];
+  setColDescriptors: Dispatch<SetStateAction<GenericColDescriptor[]>>;
 }) => {
-  const [colDescriptors, setColDescriptors] = useState(defaultColDefs);
-
-  useEffect(() => {
-    // compute colDef when value in editors change
-    const newComputedColDef = colDescriptors.map((colDef, colDefIndex) => {
-      let result: any = {};
-      colDef.map((composer) => {
-        result = GRID_EDITOR_MAP[composer.type].composer(
-          result,
-          composer.param
-        );
-      });
-      return result;
-    });
-    props.onColDefsChange?.(newComputedColDef);
-  }, [colDescriptors]);
-
   const columnsToRender = colDescriptors.map((colDescriptor, colIndex) => {
     const handleNewComposer: MenuProps["onClick"] = (e) => {
       const selectedKey = e.key as GRID_EDITOR_MAP_TYPE_KEY;
