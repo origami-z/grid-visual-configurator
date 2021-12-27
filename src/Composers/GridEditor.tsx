@@ -56,7 +56,7 @@ export const FieldEditor = (props: {
 
 export const VALUE_FORMATTER_TYPE = "Grid.ValueFormatter" as const;
 export interface ValueFormatterComposerParam {
-  formatter: (value: any) => any;
+  formatterDescriptors: ValueFormatterDescriptor[];
 }
 export interface ValueFormatterComposerDescriptor {
   type: typeof VALUE_FORMATTER_TYPE;
@@ -64,36 +64,50 @@ export interface ValueFormatterComposerDescriptor {
 }
 export const ValueFormatterComposer = <T extends {}>(
   input: T,
-  param: ValueFormatterComposerParam
-): T & { valueFormatter: ValueFormatterFunc } => ({
-  ...input,
-  valueFormatter: (valueFormatterParam) => {
-    return param.formatter(valueFormatterParam.value);
-  },
-});
+  { formatterDescriptors }: ValueFormatterComposerParam
+): T & { valueFormatter: ValueFormatterFunc } => {
+  const descriptorToFormatter = (input: any) => {
+    let outputValue = input;
+    for (let i = 0; i < formatterDescriptors.length; i++) {
+      const ftType = formatterDescriptors[i].type;
+      const formatterFn = FORMATTER_EDITOR_MAP[ftType].converter(
+        formatterDescriptors[i].param
+      );
+      outputValue = formatterFn(outputValue);
+    }
+    return outputValue;
+  };
+  return {
+    ...input,
+    valueFormatter: (valueFormatterParam) => {
+      return descriptorToFormatter(valueFormatterParam.value);
+    },
+  };
+};
 const DefaultValueFormatterComposer: ValueFormatterComposerDescriptor = {
   type: VALUE_FORMATTER_TYPE,
-  param: { formatter: (x: any) => x },
+  param: { formatterDescriptors: [] },
 };
-export interface GenericValueFormatter {
+export interface ValueFormatterDescriptor {
   type: keyof typeof FORMATTER_EDITOR_MAP;
   param?: any;
 }
-export const ValueFormatterEditor = (props: {
+export const ValueFormatterEditor = ({
+  param = { formatterDescriptors: [] },
+  onParamChange,
+}: {
   param?: ValueFormatterComposerParam;
   onParamChange?: (newParam: ValueFormatterComposerParam) => void;
 }) => {
-  const [formatterArray, setFormatterArray] = useState<GenericValueFormatter[]>(
-    []
-  );
-
   const handleNewFormatter: MenuProps["onClick"] = (e) => {
     const selectedKey = (FORMATTER_EDITOR_KEY_PREFIX +
       e.key) as keyof typeof FORMATTER_EDITOR_MAP;
-    setFormatterArray((prevArray) => [
-      ...prevArray,
-      FORMATTER_EDITOR_MAP[selectedKey].defaultKey,
-    ]);
+    onParamChange?.({
+      formatterDescriptors: [
+        ...param.formatterDescriptors,
+        FORMATTER_EDITOR_MAP[selectedKey].defaultKey,
+      ],
+    });
   };
 
   const addFormatterMenu = (
@@ -102,7 +116,7 @@ export const ValueFormatterEditor = (props: {
         return (
           <Menu.Item
             key={k}
-            disabled={formatterArray.some(
+            disabled={param.formatterDescriptors.some(
               (f) => f.type === FORMATTER_EDITOR_KEY_PREFIX + k
             )}
           >
@@ -113,41 +127,29 @@ export const ValueFormatterEditor = (props: {
     </Menu>
   );
 
-  useEffect(() => {
-    const descriptorToFormatter = (input: any) => {
-      let outputValue = input;
-      for (let i = 0; i < formatterArray.length; i++) {
-        const ftType = formatterArray[i].type;
-        const formatterFn = FORMATTER_EDITOR_MAP[ftType].converter(
-          formatterArray[i].param
-        );
-        outputValue = formatterFn(outputValue);
-      }
-      return outputValue;
-    };
-    props.onParamChange?.({ formatter: descriptorToFormatter });
-  }, [formatterArray]);
-
-  const formatterRenderers = formatterArray.map((f) => {
+  const formatterRenderers = param.formatterDescriptors.map((f) => {
     const ftType = f.type;
     const onParamChange = (newParam: any) => {
-      setFormatterArray((prevArray) =>
-        prevArray.map((formatter) => {
+      onParamChange?.({
+        formatterDescriptors: param.formatterDescriptors.map((formatter) => {
           if (formatter.type === ftType) {
             return { ...formatter, param: newParam };
           } else {
             return formatter;
           }
-        })
-      );
+        }),
+      });
     };
     return (
       <div key={ftType} className="GridEditor-FormatterRenderer">
         <Button
+          aria-label="remove formatter"
           onClick={() =>
-            setFormatterArray((prevArray) =>
-              prevArray.filter((formatter) => formatter.type !== ftType)
-            )
+            onParamChange({
+              formatterDescriptors: param.formatterDescriptors.filter(
+                (formatter) => formatter.type !== ftType
+              ),
+            })
           }
         >
           X

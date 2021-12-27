@@ -33,7 +33,12 @@ function App() {
         </div>
       </div>
       <div className="RightColumn">
-        <GridResult rowData={rowData} colDescriptors={colDescriptors} />
+        <div className="RightColumn-TopPanel">
+          <GridResult rowData={rowData} colDescriptors={colDescriptors} />
+        </div>
+        <div className="RightColumn-BottomPanel">
+          {JSON.stringify(colDescriptors)}
+        </div>
       </div>
     </div>
   );
