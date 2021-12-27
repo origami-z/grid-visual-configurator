@@ -2,6 +2,7 @@ import { Button, Dropdown, Menu, MenuProps } from "antd";
 import { createElement, Dispatch, SetStateAction } from "react";
 import "./ColDefEditor.css";
 import {
+  FieldDefaultDescriptor,
   GenericColDescriptor,
   GRID_EDITOR_MAP,
   GRID_EDITOR_MAP_TYPE_KEY,
@@ -14,6 +15,21 @@ export const ColDefEditor = ({
   colDescriptors: GenericColDescriptor[];
   setColDescriptors: Dispatch<SetStateAction<GenericColDescriptor[]>>;
 }) => {
+  const addNewColumn = () => {
+    setColDescriptors((prevColDescriptor) => [
+      ...prevColDescriptor,
+      [FieldDefaultDescriptor],
+    ]);
+  };
+
+  const removeColumnAtIndex = (indexToRemove: number) => {
+    setColDescriptors((prevColDescriptors) => {
+      const newColDescriptors = prevColDescriptors.slice();
+      newColDescriptors.splice(indexToRemove, 1);
+      return newColDescriptors;
+    });
+  };
+
   const columnsToRender = colDescriptors.map((colDescriptor, colIndex) => {
     const handleNewComposer: MenuProps["onClick"] = (e) => {
       const selectedKey = e.key as GRID_EDITOR_MAP_TYPE_KEY;
@@ -47,7 +63,10 @@ export const ColDefEditor = ({
 
     return (
       <div key={colIndex}>
-        <div>Column {colIndex + 1}</div>
+        <div>
+          Column {colIndex + 1}
+          <Button onClick={() => removeColumnAtIndex(colIndex)}>X</Button>
+        </div>
         {colDescriptor.map((composer, composerIndex) => {
           const key = `column-${colIndex}-editor-${composerIndex}`;
 
@@ -87,5 +106,10 @@ export const ColDefEditor = ({
       </div>
     );
   });
-  return <div className="ColDefEditor">{columnsToRender}</div>;
+  return (
+    <div className="ColDefEditor">
+      {columnsToRender}
+      <Button onClick={addNewColumn}>New Column</Button>
+    </div>
+  );
 };
