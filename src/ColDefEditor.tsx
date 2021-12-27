@@ -1,102 +1,71 @@
-import { Menu, Dropdown, Button, MenuProps } from "antd";
-import { useState, createElement, useEffect } from "react";
-
+import { Button, Dropdown, Menu, MenuProps } from "antd";
+import { createElement, useEffect, useState } from "react";
 import "./ColDefEditor.css";
 import {
   FIELD_TYPE,
-  GRID_COMPOSER_MAP,
-  VALUE_FORMATTER_TYPE,
-} from "./Composers/Grid";
-import {
-  DefaultFieldComposer,
-  DefaultValueFormatterComposer,
   GRID_EDITOR_MAP,
+  GRID_EDITOR_MAP_TYPE_KEY,
+  VALUE_FORMATTER_TYPE,
 } from "./Composers/GridEditor";
 
 export interface GenericFieldComposer {
-  type: string;
-  [key: string]: any;
+  type: GRID_EDITOR_MAP_TYPE_KEY;
+  param?: any;
 }
 
-export type GenericColDef = GenericFieldComposer[];
+export type GenericColDescriptor = GenericFieldComposer[];
 
-const defaultColDefs: GenericColDef[] = [
-  [{ type: FIELD_TYPE, field: "make" }],
-  [{ type: FIELD_TYPE, field: "model" }],
-  [{ type: FIELD_TYPE, field: "price" }],
+const defaultColDefs: GenericColDescriptor[] = [
+  [{ type: FIELD_TYPE, param: { field: "make" } }],
+  [{ type: FIELD_TYPE, param: { field: "model" } }],
+  [{ type: FIELD_TYPE, param: { field: "price" } }],
 ];
 
 export const ColDefEditor = (props: {
   onColDefsChange?: (newColDefs: any[]) => void;
 }) => {
-  const [colDefs, setColDefs] = useState(defaultColDefs);
+  const [colDescriptors, setColDescriptors] = useState(defaultColDefs);
 
   useEffect(() => {
     // compute colDef when value in editors change
-    const newComputedColDef = colDefs.map((colDef, colDefIndex) => {
+    const newComputedColDef = colDescriptors.map((colDef, colDefIndex) => {
       let result: any = {};
       colDef.map((composer) => {
-        switch (composer.type) {
-          case FIELD_TYPE:
-            // const fieldComposer = composer as  ;
-            result = GRID_COMPOSER_MAP[composer.type](result, composer.field);
-            break;
-          case VALUE_FORMATTER_TYPE:
-            result = GRID_COMPOSER_MAP[composer.type](
-              result,
-              composer.formatter
-            );
-            break;
-          default:
-          // do nothing
-        }
+        result = GRID_EDITOR_MAP[composer.type].composer(
+          result,
+          composer.param
+        );
       });
       return result;
     });
     props.onColDefsChange?.(newComputedColDef);
-  }, [colDefs]);
+  }, [colDescriptors]);
 
-  const columnsToRender = colDefs.map((colDef, columnIndex) => {
+  const columnsToRender = colDescriptors.map((colDescriptor, colIndex) => {
     const handleNewComposer: MenuProps["onClick"] = (e) => {
-      const selectedKey = e.key;
-      switch (selectedKey) {
-        case FIELD_TYPE:
-          setColDefs((prevColDefs) =>
-            prevColDefs.map((prevColDef, prevColDefIndex) => {
-              if (
-                prevColDefIndex === columnIndex &&
-                !prevColDef.some((c) => c.type === selectedKey)
-              ) {
-                return [...prevColDef, DefaultFieldComposer];
-              } else {
-                return prevColDef;
-              }
-            })
-          );
-          break;
-        case VALUE_FORMATTER_TYPE:
-          setColDefs((prevColDefs) =>
-            prevColDefs.map((prevColDef, prevColDefIndex) => {
-              if (
-                prevColDefIndex === columnIndex &&
-                !prevColDef.some((c) => c.type === selectedKey)
-              ) {
-                return [...prevColDef, DefaultValueFormatterComposer];
-              } else {
-                return prevColDef;
-              }
-            })
-          );
-          break;
-        default:
-          console.warn("Unrecognized composer type", selectedKey);
-      }
+      const selectedKey = e.key as GRID_EDITOR_MAP_TYPE_KEY;
+
+      setColDescriptors((prevColDescriptors) =>
+        prevColDescriptors.map((prevColDescriptor, prevColIndex) => {
+          if (
+            prevColIndex === colIndex &&
+            !prevColDescriptor.some((c) => c.type === selectedKey)
+          ) {
+            return [
+              ...prevColDescriptor,
+              GRID_EDITOR_MAP[selectedKey].defaultDescriptor,
+            ];
+          } else {
+            return prevColDescriptor;
+          }
+        })
+      );
     };
 
     const addComposerMenu = (
       <Menu onClick={handleNewComposer}>
-        {Object.keys(GRID_COMPOSER_MAP).map((k) => (
-          <Menu.Item key={k} disabled={colDef.some((c) => c.type === k)}>
+        {Object.keys(GRID_EDITOR_MAP).map((k) => (
+          <Menu.Item key={k} disabled={colDescriptor.some((c) => c.type === k)}>
             {k}
           </Menu.Item>
         ))}
@@ -104,69 +73,42 @@ export const ColDefEditor = (props: {
     );
 
     return (
-      <div key={columnIndex}>
-        <div>Column {columnIndex + 1}</div>
-        {colDef.map((composer, composerIndex) => {
-          const key = `column-${columnIndex}-editor-${composerIndex}`;
-          switch (composer.type) {
-            case FIELD_TYPE:
-              const onFieldChange = (newField: string) => {
-                setColDefs((prevColDefs) =>
-                  prevColDefs.map((prevColDef, prevColDefIndex) => {
-                    if (prevColDefIndex === columnIndex) {
-                      const newColDef = [...prevColDef];
-                      newColDef[composerIndex].field = newField;
-                      return newColDef;
-                    } else {
-                      return prevColDef;
+      <div key={colIndex}>
+        <div>Column {colIndex + 1}</div>
+        {colDescriptor.map((composer, composerIndex) => {
+          const key = `column-${colIndex}-editor-${composerIndex}`;
+
+          const onParamChange = (newParam: any) => {
+            setColDescriptors((prevColDefs) =>
+              prevColDefs.map((prevColDef, prevColDefIndex) => {
+                if (prevColDefIndex === colIndex) {
+                  const newColDef = prevColDef.map(
+                    (prevComp, prevCompIndex) => {
+                      if (prevCompIndex === composerIndex) {
+                        return {
+                          ...prevComp,
+                          param: newParam,
+                        };
+                      } else {
+                        return prevComp;
+                      }
                     }
-                  })
-                );
-              };
-              return createElement(GRID_EDITOR_MAP[composer.type], {
-                ...composer,
-                key,
-                onFieldChange,
-              });
-            case VALUE_FORMATTER_TYPE:
-              const onFormatterChange = (newFormatter: (value: any) => any) => {
-                setColDefs((prevColDefs) =>
-                  prevColDefs.map((prevColDef, prevColDefIndex) => {
-                    if (prevColDefIndex === columnIndex) {
-                      const newColDef = prevColDef.map(
-                        (prevComp, prevCompIndex) => {
-                          if (prevCompIndex === composerIndex) {
-                            return {
-                              ...prevComp,
-                              formatter: newFormatter,
-                            };
-                          } else {
-                            return prevComp;
-                          }
-                        }
-                      );
-                      return newColDef;
-                    } else {
-                      return prevColDef;
-                    }
-                  })
-                );
-              };
-              return createElement(GRID_EDITOR_MAP[composer.type], {
-                ...composer,
-                key,
-                onFormatterChange,
-              });
-            default:
-              return null;
-          }
+                  );
+                  return newColDef;
+                } else {
+                  return prevColDef;
+                }
+              })
+            );
+          };
+          return createElement(GRID_EDITOR_MAP[composer.type].editor as any, {
+            key,
+            param: composer.param,
+            onParamChange,
+          });
         })}
 
-        <Dropdown
-          overlay={addComposerMenu}
-          // onVisibleChange={this.handleVisibleChange}
-          // visible={this.state.visible}
-        >
+        <Dropdown overlay={addComposerMenu}>
           <Button>Add +</Button>
         </Dropdown>
       </div>

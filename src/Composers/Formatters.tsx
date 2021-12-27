@@ -6,22 +6,27 @@ export const DivideByThousandEditor = () => <div>Divide by 1e3</div>;
 
 export const FIXED_DECIMAL_PLACES_TYPE =
   "Grid.ValueFormatter.FixedDecimalPlaces" as const;
+export interface FixedDecimalPlacesParam {
+  dp: number;
+}
 export const fixedDecimalPlacesConverter =
-  (params: { dp: number }) => (input: string) =>
-    Number.parseFloat(input).toFixed(params.dp);
+  (param: FixedDecimalPlacesParam) => (input: string) =>
+    Number.parseFloat(input).toFixed(param.dp);
 export const FixedDecimalPlacesEditor = (props: {
-  dp?: number;
-  onChange?: (newValue: { dp: number }) => void;
+  param?: FixedDecimalPlacesParam;
+  onParamChange?: (newParam: FixedDecimalPlacesParam) => void;
 }) => {
   return (
     <div>
       <label>
         Decimal Places
         <input
-          value={props.dp}
+          value={props.param?.dp}
           type="number"
           onChange={(e) =>
-            props.onChange?.({ dp: Number.parseInt(e.currentTarget.value) })
+            props.onParamChange?.({
+              dp: Number.parseInt(e.currentTarget.value),
+            })
           }
         />
       </label>
@@ -29,20 +34,24 @@ export const FixedDecimalPlacesEditor = (props: {
   );
 };
 
-export const SUFFIX_BY_K_TYPE = "Grid.ValueFormatter.SuffixByK" as const;
-export const suffixByKConverter =
-  (params: { suffix: string }) => (input: string) =>
-    input.toString() + params.suffix;
-export const SuffixByKEditor = (props: {
-  suffix?: string;
-  onChange?: (newValue: { suffix: string }) => void;
+export const SUFFIX_BY_TYPE = "Grid.ValueFormatter.SuffixBy" as const;
+export interface SuffixByParam {
+  suffix: string;
+}
+export const suffixByConverter = (param: SuffixByParam) => (input: string) =>
+  input.toString() + param.suffix;
+export const SuffixByEditor = (props: {
+  param?: SuffixByParam;
+  onParamChange?: (newValue: SuffixByParam) => void;
 }) => (
   <div>
     <label>
       Suffix
       <input
-        value={props.suffix}
-        onChange={(e) => props.onChange?.({ suffix: e.currentTarget.value })}
+        value={props.param?.suffix}
+        onChange={(e) =>
+          props.onParamChange?.({ suffix: e.currentTarget.value })
+        }
       />
     </label>
   </div>
@@ -55,14 +64,14 @@ export const FORMATTER_EDITOR_MAP = {
     converter: divideByThousandConverter,
   },
   [FIXED_DECIMAL_PLACES_TYPE]: {
-    defaultKey: { type: FIXED_DECIMAL_PLACES_TYPE, params: { dp: 2 } },
+    defaultKey: { type: FIXED_DECIMAL_PLACES_TYPE, param: { dp: 2 } },
     editor: FixedDecimalPlacesEditor,
     converter: fixedDecimalPlacesConverter,
   },
-  [SUFFIX_BY_K_TYPE]: {
-    defaultKey: { type: SUFFIX_BY_K_TYPE, params: { suffix: "k" } },
-    editor: SuffixByKEditor,
-    converter: suffixByKConverter,
+  [SUFFIX_BY_TYPE]: {
+    defaultKey: { type: SUFFIX_BY_TYPE, param: { suffix: " k" } },
+    editor: SuffixByEditor,
+    converter: suffixByConverter,
   },
 };
 
