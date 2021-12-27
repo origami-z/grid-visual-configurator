@@ -75,6 +75,7 @@ export const ValueFormatterEditor = ({
       <div key={ftType} className="GridEditor-FormatterRenderer">
         <Button
           aria-label="remove formatter"
+          icon={"x"}
           onClick={() =>
             onValueFormatterParamChange?.({
               formatterDescriptors: param.formatterDescriptors.filter(
@@ -82,9 +83,7 @@ export const ValueFormatterEditor = ({
               ),
             })
           }
-        >
-          X
-        </Button>
+        />
         {createElement(FORMATTER_EDITOR_MAP[ftType].editor as any, {
           param: f.param,
           onParamChange,
@@ -98,7 +97,7 @@ export const ValueFormatterEditor = ({
       <div>
         Value Formatter
         <Dropdown overlay={addFormatterMenu}>
-          <Button>+</Button>
+          <Button icon={"+"} />
         </Dropdown>
       </div>
       {formatterRenderers}

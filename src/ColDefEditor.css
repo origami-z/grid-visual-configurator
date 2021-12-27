@@ -1,4 +1,17 @@
-.ColDefEditor {
+.ColDefEditor-Columns {
   display: flex;
   gap: 8px;
+}
+
+.ColDefEditor-Column {
+}
+
+.ColDefEditor-ColumnHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ColDefEditor-ColumnRow {
+  display: flex;
 }

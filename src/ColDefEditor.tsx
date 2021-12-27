@@ -62,10 +62,10 @@ export const ColDefEditor = ({
     );
 
     return (
-      <div key={colIndex}>
-        <div>
-          Column {colIndex + 1}
-          <Button onClick={() => removeColumnAtIndex(colIndex)}>X</Button>
+      <div key={colIndex} className="ColDefEditor-Column">
+        <div className="ColDefEditor-ColumnHeader">
+          <div>Column {colIndex + 1}</div>
+          <Button icon={"x"} onClick={() => removeColumnAtIndex(colIndex)} />
         </div>
         {colDescriptor.map((composer, composerIndex) => {
           const key = `column-${colIndex}-editor-${composerIndex}`;
@@ -93,11 +93,20 @@ export const ColDefEditor = ({
               })
             );
           };
-          return createElement(GRID_EDITOR_MAP[composer.type].editor as any, {
-            key,
-            param: composer.param,
-            onParamChange,
-          });
+          const descriptorEditor = createElement(
+            GRID_EDITOR_MAP[composer.type].editor as any,
+            {
+              key,
+              param: composer.param,
+              onParamChange,
+            }
+          );
+
+          return (
+            <div className="ColDefEditor-ColumnRow">
+              <Button icon={"x"} /> {descriptorEditor}
+            </div>
+          );
         })}
 
         <Dropdown overlay={addComposerMenu}>
@@ -107,9 +116,9 @@ export const ColDefEditor = ({
     );
   });
   return (
-    <div className="ColDefEditor">
-      {columnsToRender}
+    <div>
       <Button onClick={addNewColumn}>New Column</Button>
+      <div className="ColDefEditor-Columns">{columnsToRender}</div>
     </div>
   );
 };
