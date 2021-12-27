@@ -6,6 +6,8 @@ import {
   FixedDecimalPlacesParam,
   FIXED_DECIMAL_PLACES_TYPE,
   GenericColDescriptor,
+  HeaderNameComposerParam,
+  HEADER_NAME_TYPE,
   SuffixByParam,
   SUFFIX_BY_TYPE,
   ValueFormatterComposerParam,
@@ -60,12 +62,23 @@ const ValueFormatterComposer = <T extends {}>(
   };
 };
 
+const HeaderNameComposer = <T extends {}>(
+  input: T,
+  param: HeaderNameComposerParam
+) => ({
+  ...input,
+  title: param.headerName,
+});
+
 const GRID_EDITOR_MAP = {
   [FIELD_TYPE]: {
     composer: FieldComposer,
   },
   [VALUE_FORMATTER_TYPE]: {
     composer: ValueFormatterComposer,
+  },
+  [HEADER_NAME_TYPE]: {
+    composer: HeaderNameComposer,
   },
 };
 
