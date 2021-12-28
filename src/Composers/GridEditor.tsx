@@ -15,6 +15,11 @@ import {
   HeaderNameEditor,
   HEADER_NAME_TYPE,
 } from "./Header";
+import {
+  SortableDefaultDescriptor,
+  SortableEditor,
+  SORTABLE_TYPE,
+} from "./Sortable";
 
 export interface GenericFieldComposer {
   type: GRID_EDITOR_MAP_TYPE_KEY;
@@ -35,6 +40,10 @@ export const GRID_EDITOR_MAP = {
   [HEADER_NAME_TYPE]: {
     defaultDescriptor: HeaderNameDefaultDescriptor,
     editor: HeaderNameEditor,
+  },
+  [SORTABLE_TYPE]: {
+    defaultDescriptor: SortableDefaultDescriptor,
+    editor: SortableEditor,
   },
 };
 export type GRID_EDITOR_MAP_TYPE_KEY = keyof typeof GRID_EDITOR_MAP;

@@ -8,6 +8,8 @@ import {
   GenericColDescriptor,
   HeaderNameComposerParam,
   HEADER_NAME_TYPE,
+  SortableComposerParam,
+  SORTABLE_TYPE,
   SuffixByParam,
   SUFFIX_BY_TYPE,
   ValueFormatterComposerParam,
@@ -70,6 +72,14 @@ const HeaderNameComposer = <T extends {}>(
   title: param.headerName,
 });
 
+const SortableComposer = <T extends {}>(
+  input: T,
+  param: SortableComposerParam
+) => {
+  console.warn("Unsupported sortable");
+  return input;
+};
+
 const GRID_EDITOR_MAP = {
   [FIELD_TYPE]: {
     composer: FieldComposer,
@@ -79,6 +89,9 @@ const GRID_EDITOR_MAP = {
   },
   [HEADER_NAME_TYPE]: {
     composer: HeaderNameComposer,
+  },
+  [SORTABLE_TYPE]: {
+    composer: SortableComposer,
   },
 };
 

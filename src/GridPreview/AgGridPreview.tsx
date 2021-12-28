@@ -15,6 +15,8 @@ import {
   SUFFIX_BY_TYPE,
   ValueFormatterComposerParam,
   VALUE_FORMATTER_TYPE,
+  SortableComposerParam,
+  SORTABLE_TYPE,
 } from "../Composers";
 
 const FieldComposer = <T extends {}>(input: T, param: FieldComposerParam) => ({
@@ -71,6 +73,14 @@ const HeaderNameComposer = <T extends {}>(
   headerName: param.headerName,
 });
 
+const SortableComposer = <T extends {}>(
+  input: T,
+  param: SortableComposerParam
+) => ({
+  ...input,
+  sortable: param.sortable,
+});
+
 const GRID_EDITOR_MAP = {
   [FIELD_TYPE]: {
     composer: FieldComposer,
@@ -80,6 +90,9 @@ const GRID_EDITOR_MAP = {
   },
   [HEADER_NAME_TYPE]: {
     composer: HeaderNameComposer,
+  },
+  [SORTABLE_TYPE]: {
+    composer: SortableComposer,
   },
 };
 
