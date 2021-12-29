@@ -1,3 +1,4 @@
+import { InputNumber } from "antd";
 export const DIVIDE_BY_THOUSAND_TYPE =
   "Grid.ValueFormatter.DivideByThousand" as const;
 export const DivideByThousandEditor = () => <div>Divide by 1e3</div>;
@@ -16,14 +17,9 @@ export const FixedDecimalPlacesEditor = (props: {
     <div>
       <label>
         Decimal Places
-        <input
+        <InputNumber
           value={props.param?.dp}
-          type="number"
-          onChange={(e) =>
-            props.onParamChange?.({
-              dp: Number.parseInt(e.currentTarget.value),
-            })
-          }
+          onChange={(newValue) => props.onParamChange?.({ dp: newValue })}
         />
       </label>
     </div>
