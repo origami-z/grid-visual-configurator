@@ -1,7 +1,7 @@
 import { Radio } from "antd";
 import { useState } from "react";
 import "./App.css";
-import { ColDefEditor } from "./ColDefEditor";
+import { ColDescriptorEditor } from "./ColDescriptorEditor";
 import {
   FIELD_TYPE,
   GenericColDescriptor,
@@ -34,7 +34,7 @@ function App() {
     <div className="App">
       <div className="LeftColumn">
         <div className="LeftColumn-TopPanel">
-          <ColDefEditor
+          <ColDescriptorEditor
             colDescriptors={colDescriptors}
             setColDescriptors={setColDescriptors}
           />

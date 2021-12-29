@@ -1,6 +1,6 @@
 import { Button, Dropdown, Menu, MenuProps } from "antd";
 import { createElement, Dispatch, SetStateAction } from "react";
-import "./ColDefEditor.css";
+import "./ColDescriptorEditor.css";
 import {
   FieldDefaultDescriptor,
   GenericColDescriptor,
@@ -8,7 +8,7 @@ import {
   GRID_EDITOR_MAP_TYPE_KEY,
 } from "./Composers";
 
-export const ColDefEditor = ({
+export const ColDescriptorEditor = ({
   colDescriptors,
   setColDescriptors,
 }: {
@@ -62,8 +62,8 @@ export const ColDefEditor = ({
     );
 
     return (
-      <div key={colIndex} className="ColDefEditor-Column">
-        <div className="ColDefEditor-ColumnHeader">
+      <div key={colIndex} className="ColDescriptorEditor-Column">
+        <div className="ColDescriptorEditor-ColumnHeader">
           <div>Column {colIndex + 1}</div>
           <Button icon={"x"} onClick={() => removeColumnAtIndex(colIndex)} />
         </div>
@@ -103,7 +103,10 @@ export const ColDefEditor = ({
           );
 
           return (
-            <div className="ColDefEditor-ColumnRow">
+            <div
+              className="ColDescriptorEditor-ColumnRow"
+              key={`${key}-container`}
+            >
               <Button icon={"x"} /> {descriptorEditor}
             </div>
           );
@@ -118,7 +121,7 @@ export const ColDefEditor = ({
   return (
     <div>
       <Button onClick={addNewColumn}>New Column</Button>
-      <div className="ColDefEditor-Columns">{columnsToRender}</div>
+      <div className="ColDescriptorEditor-Columns">{columnsToRender}</div>
     </div>
   );
 };

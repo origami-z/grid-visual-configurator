@@ -8,7 +8,7 @@ export interface HeaderNameComposerDescriptor {
 }
 export const HeaderNameDefaultDescriptor: HeaderNameComposerDescriptor = {
   type: HEADER_NAME_TYPE,
-  param: { headerName: "Header Name" },
+  param: { headerName: "Custom" },
 };
 export const HeaderNameEditor = (props: {
   param?: HeaderNameComposerParam;
@@ -17,7 +17,7 @@ export const HeaderNameEditor = (props: {
   return (
     <div>
       <label>
-        Header name
+        Header
         <input
           value={props.param?.headerName}
           onChange={(e) =>
