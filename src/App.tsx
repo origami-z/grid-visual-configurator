@@ -1,12 +1,9 @@
 import { Radio } from "antd";
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
+import ReactJson from "react-json-view";
 import "./App.css";
 import { ColDescriptorEditor } from "./ColDescriptorEditor";
-import {
-  FIELD_TYPE,
-  GenericColDescriptor,
-  GRID_EDITOR_MAP_TYPE_KEY,
-} from "./Composers";
+import { FIELD_TYPE, GenericColDescriptor } from "./Composers";
 import { DataInput } from "./DataInput";
 import { AgGridPreview } from "./GridPreview/AgGridPreview";
 import { AntdTablePreview } from "./GridPreview/AntdTablePreview";
@@ -56,13 +53,16 @@ function App() {
       <div className="RightColumn">
         <div className="RightColumn-TopPanel">{previewGrid}</div>
         <div className="RightColumn-BottomPanel">
+          <label htmlFor="grid-preview-radio-group-id">Grid preview: </label>
           <Radio.Group
-            aria-label="grid preview"
+            id="grid-preview-radio-group-id"
             options={gridPreviewOptions}
             onChange={(e) => setPreviewOpt(e.target.value)}
             value={previewOpt}
           />
-          <div>{JSON.stringify(colDescriptors)}</div>
+          <div>Debug Column Descriptors</div>
+          <ReactJson src={colDescriptors} />
+          {/* <div>{JSON.stringify(colDescriptors)}</div> */}
         </div>
       </div>
     </div>
