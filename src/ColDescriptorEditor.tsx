@@ -74,26 +74,28 @@ export const ColDescriptorEditor = ({
           const key = `column-${colIndex}-editor-${composerIndex}`;
 
           const onParamChange = (newParam: any) => {
-            setColDescriptors((prevColDefs) =>
-              prevColDefs.map((prevColDef, prevColDefIndex) => {
-                if (prevColDefIndex === colIndex) {
-                  const newColDef = prevColDef.map(
-                    (prevComp, prevCompIndex) => {
-                      if (prevCompIndex === composerIndex) {
-                        return {
-                          ...prevComp,
-                          param: newParam,
-                        };
-                      } else {
-                        return prevComp;
+            setColDescriptors((preColDescriptors) =>
+              preColDescriptors.map(
+                (prevColDescriptor, prevColDescriptorIndex) => {
+                  if (prevColDescriptorIndex === colIndex) {
+                    const newColDef = prevColDescriptor.map(
+                      (prevComp, prevCompIndex) => {
+                        if (prevCompIndex === composerIndex) {
+                          return {
+                            ...prevComp,
+                            param: newParam,
+                          };
+                        } else {
+                          return prevComp;
+                        }
                       }
-                    }
-                  );
-                  return newColDef;
-                } else {
-                  return prevColDef;
+                    );
+                    return newColDef;
+                  } else {
+                    return prevColDescriptor;
+                  }
                 }
-              })
+              )
             );
           };
           const descriptorEditor = createElement(
@@ -105,12 +107,31 @@ export const ColDescriptorEditor = ({
             }
           );
 
+          const removeDescriptor = () => {
+            setColDescriptors((prevColDescriptors) =>
+              prevColDescriptors.map((prevDescriptor, prevDescriptorIndex) => {
+                if (prevDescriptorIndex === colIndex) {
+                  const newColDescriptor = prevDescriptor.slice();
+                  newColDescriptor.splice(composerIndex, 1);
+                  return newColDescriptor;
+                } else {
+                  return prevDescriptor;
+                }
+              })
+            );
+          };
+
           return (
             <div
               className="ColDescriptorEditor-ColumnRow"
               key={`${key}-container`}
             >
-              <Button icon={"x"} /> {descriptorEditor}
+              <Button
+                icon={"x"}
+                onClick={removeDescriptor}
+                aria-label="remove composer"
+              />{" "}
+              {descriptorEditor}
             </div>
           );
         })}
