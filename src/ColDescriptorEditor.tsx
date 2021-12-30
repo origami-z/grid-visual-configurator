@@ -7,13 +7,16 @@ import {
   GRID_EDITOR_MAP,
   GRID_EDITOR_MAP_TYPE_KEY,
 } from "./Composers";
+import { DataFieldsContext } from "./DataFieldsContext";
 
 export const ColDescriptorEditor = ({
   colDescriptors,
   setColDescriptors,
+  dataFields,
 }: {
   colDescriptors: GenericColDescriptor[];
   setColDescriptors: Dispatch<SetStateAction<GenericColDescriptor[]>>;
+  dataFields: string[];
 }) => {
   const addNewColumn = () => {
     setColDescriptors((prevColDescriptor) => [
@@ -119,9 +122,11 @@ export const ColDescriptorEditor = ({
     );
   });
   return (
-    <div>
-      <Button onClick={addNewColumn}>New Column</Button>
-      <div className="ColDescriptorEditor-Columns">{columnsToRender}</div>
-    </div>
+    <DataFieldsContext.Provider value={dataFields}>
+      <div>
+        <Button onClick={addNewColumn}>New Column</Button>
+        <div className="ColDescriptorEditor-Columns">{columnsToRender}</div>
+      </div>
+    </DataFieldsContext.Provider>
   );
 };

@@ -1,5 +1,5 @@
 import { Radio } from "antd";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import "./App.css";
 import { ColDescriptorEditor } from "./ColDescriptorEditor";
 import {
@@ -19,11 +19,20 @@ const defaultColDescriptor: GenericColDescriptor[] = [
 
 const gridPreviewOptions = ["ag-grid", "antd table"];
 
+const getFieldsFromData = (data: any[]) => {
+  const allFields = new Set<string>();
+  data.forEach((rowData) => {
+    Object.keys(rowData).forEach((r) => allFields.add(r));
+  });
+  return Array.from(allFields);
+};
+
 function App() {
   const [rowData, setRowData] = useState<any[] | null>([]);
   const [colDescriptors, setColDescriptors] =
     useState<GenericColDescriptor[]>(defaultColDescriptor);
   const [previewOpt, setPreviewOpt] = useState(gridPreviewOptions[0]);
+  const dataFields = useMemo(() => getFieldsFromData(rowData || []), [rowData]);
   const previewGrid =
     previewOpt === "ag-grid" ? (
       <AgGridPreview rowData={rowData} colDescriptors={colDescriptors} />
@@ -37,6 +46,7 @@ function App() {
           <ColDescriptorEditor
             colDescriptors={colDescriptors}
             setColDescriptors={setColDescriptors}
+            dataFields={dataFields}
           />
         </div>
         <div className="LeftColumn-BottomPanel">

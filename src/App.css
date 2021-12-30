@@ -4,6 +4,10 @@
   width: 100vw;
 }
 
+.App label {
+  white-space: nowrap;
+}
+
 .LeftColumn {
   display: flex;
   flex-direction: column;
