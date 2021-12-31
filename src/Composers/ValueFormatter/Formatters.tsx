@@ -1,4 +1,5 @@
 import { InputNumber } from "antd";
+
 export const DIVIDE_BY_THOUSAND_TYPE =
   "Grid.ValueFormatter.DivideByThousand" as const;
 export const DivideByThousandEditor = () => <div>Divide by 1e3</div>;

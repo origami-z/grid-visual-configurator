@@ -1,3 +1,6 @@
 .GridEditor-FormatterRenderer {
   display: flex;
 }
+.GridEditor-CellStylerRenderer {
+  display: flex;
+}

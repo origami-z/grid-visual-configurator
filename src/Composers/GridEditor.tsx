@@ -20,6 +20,11 @@ import {
   SortableEditor,
   SORTABLE_TYPE,
 } from "./Sortable";
+import {
+  CellStylerDefaultDescriptor,
+  CellStylerEditor,
+  CELL_STYLER_TYPE,
+} from "./CellStyler/CellStylerComposer";
 
 export interface GenericFieldComposer {
   type: GRID_EDITOR_MAP_TYPE_KEY;
@@ -36,6 +41,10 @@ export const GRID_EDITOR_MAP = {
   [VALUE_FORMATTER_TYPE]: {
     defaultDescriptor: ValueFormatterDefaultDescriptor,
     editor: ValueFormatterEditor,
+  },
+  [CELL_STYLER_TYPE]: {
+    defaultDescriptor: CellStylerDefaultDescriptor,
+    editor: CellStylerEditor,
   },
   [HEADER_NAME_TYPE]: {
     defaultDescriptor: HeaderNameDefaultDescriptor,

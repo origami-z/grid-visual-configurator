@@ -102,14 +102,20 @@ export const AntdTablePreview = (props: {
   // compute colDef when value in editors change
   const colDefFromColDescriptors = props.colDescriptors?.map(
     (colDescriptor, index) => {
-      let result: any = {};
-      colDescriptor.map((composer) => {
-        result = GRID_EDITOR_MAP[composer.type].composer(
-          result,
-          composer.param
-        );
-      });
-      return result;
+      return colDescriptor.reduce((result, currentComposer) => {
+        const editorType =
+          GRID_EDITOR_MAP[currentComposer.type as keyof typeof GRID_EDITOR_MAP];
+
+        if (editorType) {
+          return editorType.composer(result, currentComposer.param);
+        } else {
+          console.warn(
+            "Antd unimplemented composer type",
+            currentComposer.type
+          );
+          return result;
+        }
+      }, {});
     }
   );
 
