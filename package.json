@@ -1,5 +1,5 @@
 {
-  "name": "openapi-aggrid-visual-generator",
+  "name": "grid-visual-generator",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
@@ -7,8 +7,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "ag-grid-community": "^26.2.1",
-    "ag-grid-react": "^26.2.0",
+    "ag-grid-community": "^27.2.1",
+    "ag-grid-react": "^27.2.1",
     "antd": "^4.17.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -17,8 +17,8 @@
   "devDependencies": {
     "@types/react": "^17.0.33",
     "@types/react-dom": "^17.0.10",
-    "@vitejs/plugin-react": "^1.1.4",
-    "typescript": "^4.5.5",
-    "vite": "^2.7.13"
+    "@vitejs/plugin-react": "^1.3.2",
+    "typescript": "^4.6.4",
+    "vite": "^2.9.8"
   }
 }
