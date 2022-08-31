@@ -1,10 +1,9 @@
 name: Build and Deploy
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
@@ -28,9 +27,3 @@ jobs:
       - name: Build 🔧
         run: |
           yarn build
-
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.7
-        with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: dist # The folder the action should deploy.
