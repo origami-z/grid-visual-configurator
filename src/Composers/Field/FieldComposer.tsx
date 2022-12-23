@@ -1,8 +1,7 @@
 import { useContext } from "react";
 import { DataFieldsContext } from "../../DataFieldsContext";
 
-import { Select } from "antd";
-const { Option } = Select;
+import { ComboBox } from "@salt-ds/lab";
 
 export const FIELD_TYPE = "Grid.Field" as const;
 export interface FieldComposerParam {
@@ -22,8 +21,8 @@ export const FieldEditor = (props: {
 }) => {
   const dataFields = useContext(DataFieldsContext);
   const fieldValue = props.param?.field;
-  const selectOptions = dataFields.map((d) => ({ value: d, label: d }));
-  console.log({ selectOptions });
+  // const selectOptions = dataFields.map((d) => ({ value: d, label: d }));
+  // console.log({ selectOptions });
   const inputRenderer =
     dataFields.length === 0 ? (
       // Default or data error
@@ -34,13 +33,15 @@ export const FieldEditor = (props: {
         }
       />
     ) : (
-      <Select
+      // Not great experience when first focus will only show 1 matching option
+      <ComboBox
         value={fieldValue ? fieldValue : undefined}
-        onChange={(e) => props.onParamChange?.({ field: e })}
-        showSearch
+        onSelectionChange={(e, item) =>
+          item && props.onParamChange?.({ field: item })
+        }
         style={{ width: 100 }}
         placeholder="Search"
-        options={selectOptions}
+        source={dataFields}
       />
     );
   return (

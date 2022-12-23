@@ -1,4 +1,11 @@
-import { Button, Dropdown, Menu, MenuProps } from "antd";
+import { Button } from "@salt-ds/core";
+import { AddIcon, DeleteIcon, RemoveIcon } from "@salt-ds/icons";
+import {
+  CascadingMenuProps,
+  Dropdown,
+  MenuButton,
+  MenuDescriptor,
+} from "@salt-ds/lab";
 import { createElement, Dispatch, SetStateAction } from "react";
 import "./ColDescriptorEditor.css";
 import {
@@ -34,8 +41,8 @@ export const ColDescriptorEditor = ({
   };
 
   const columnsToRender = colDescriptors.map((colDescriptor, colIndex) => {
-    const handleNewComposer: MenuProps["onClick"] = (e) => {
-      const selectedKey = e.key as GRID_EDITOR_MAP_TYPE_KEY;
+    const handleNewComposer = (sourceItem: MenuDescriptor, e: any) => {
+      const selectedKey = sourceItem.id as GRID_EDITOR_MAP_TYPE_KEY;
 
       setColDescriptors((prevColDescriptors) =>
         prevColDescriptors.map((prevColDescriptor, prevColIndex) => {
@@ -55,21 +62,24 @@ export const ColDescriptorEditor = ({
     };
 
     const addComposerItems = Object.keys(GRID_EDITOR_MAP).map((k) => ({
-      label: k,
-      key: k,
+      id: k,
+      title: k,
       disabled: colDescriptor.some((c) => c.type === k),
     }));
 
-    const menuProps = {
-      items: addComposerItems,
-      onClick: handleNewComposer,
+    const menuProps: CascadingMenuProps = {
+      initialSource: { menuItems: addComposerItems },
+      onItemClick: handleNewComposer,
     };
 
     return (
       <div key={colIndex} className="ColDescriptorEditor-Column">
         <div className="ColDescriptorEditor-ColumnHeader">
           <div>Column {colIndex + 1}</div>
-          <Button icon={"x"} onClick={() => removeColumnAtIndex(colIndex)} />
+          <Button onClick={() => removeColumnAtIndex(colIndex)}>
+            {" "}
+            <DeleteIcon />
+          </Button>
         </div>
         {colDescriptor.map((composer, composerIndex) => {
           const key = `column-${colIndex}-editor-${composerIndex}`;
@@ -127,19 +137,16 @@ export const ColDescriptorEditor = ({
               className="ColDescriptorEditor-ColumnRow"
               key={`${key}-container`}
             >
-              <Button
-                icon={"x"}
-                onClick={removeDescriptor}
-                aria-label="remove composer"
-              />{" "}
+              <Button onClick={removeDescriptor} aria-label="remove composer">
+                {" "}
+                <RemoveIcon />{" "}
+              </Button>{" "}
               {descriptorEditor}
             </div>
           );
         })}
 
-        <Dropdown menu={menuProps}>
-          <Button>Add +</Button>
-        </Dropdown>
+        <MenuButton CascadingMenuProps={menuProps}>Add</MenuButton>
       </div>
     );
   });
