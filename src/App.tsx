@@ -3,7 +3,13 @@ import { useMemo, useState } from "react";
 import ReactJson from "react-json-view";
 import "./App.css";
 import { ColDescriptorEditor } from "./ColDescriptorEditor";
-import { FIELD_TYPE, GenericColDescriptor } from "./Composers";
+import {
+  BOLD_FONT_TYPE,
+  CELL_STYLER_TYPE,
+  FIELD_TYPE,
+  GenericColDescriptor,
+  SORTABLE_TYPE,
+} from "./Composers";
 import { DataInput } from "./DataInput";
 import { AgGridPreview } from "./GridPreview/AgGridPreview";
 import { AntdTablePreview } from "./GridPreview/AntdTablePreview";
@@ -11,7 +17,30 @@ import { AntdTablePreview } from "./GridPreview/AntdTablePreview";
 const defaultColDescriptor: GenericColDescriptor[] = [
   [{ type: FIELD_TYPE, param: { field: "make" } }],
   [{ type: FIELD_TYPE, param: { field: "model" } }],
-  [{ type: FIELD_TYPE, param: { field: "price" } }],
+  [
+    {
+      type: FIELD_TYPE,
+      param: {
+        field: "price",
+      },
+    },
+    {
+      type: SORTABLE_TYPE,
+      param: {
+        sortable: false,
+      },
+    },
+    {
+      type: CELL_STYLER_TYPE,
+      param: {
+        stylerDescriptors: [
+          {
+            type: BOLD_FONT_TYPE,
+          },
+        ],
+      },
+    },
+  ],
 ];
 
 const gridPreviewOptions = ["ag-grid", "antd table"];
