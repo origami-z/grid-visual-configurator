@@ -22,6 +22,8 @@ export const FieldEditor = (props: {
 }) => {
   const dataFields = useContext(DataFieldsContext);
   const fieldValue = props.param?.field;
+  const selectOptions = dataFields.map((d) => ({ value: d, label: d }));
+  console.log({ selectOptions });
   const inputRenderer =
     dataFields.length === 0 ? (
       // Default or data error
@@ -38,13 +40,8 @@ export const FieldEditor = (props: {
         showSearch
         style={{ width: 100 }}
         placeholder="Search"
-      >
-        {dataFields.map((d) => (
-          <Option key={d} value={d}>
-            {d}
-          </Option>
-        ))}
-      </Select>
+        options={selectOptions}
+      />
     );
   return (
     <div>

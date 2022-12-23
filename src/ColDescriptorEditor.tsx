@@ -54,15 +54,16 @@ export const ColDescriptorEditor = ({
       );
     };
 
-    const addComposerMenu = (
-      <Menu onClick={handleNewComposer}>
-        {Object.keys(GRID_EDITOR_MAP).map((k) => (
-          <Menu.Item key={k} disabled={colDescriptor.some((c) => c.type === k)}>
-            {k}
-          </Menu.Item>
-        ))}
-      </Menu>
-    );
+    const addComposerItems = Object.keys(GRID_EDITOR_MAP).map((k) => ({
+      label: k,
+      key: k,
+      disabled: colDescriptor.some((c) => c.type === k),
+    }));
+
+    const menuProps = {
+      items: addComposerItems,
+      onClick: handleNewComposer,
+    };
 
     return (
       <div key={colIndex} className="ColDescriptorEditor-Column">
@@ -136,7 +137,7 @@ export const ColDescriptorEditor = ({
           );
         })}
 
-        <Dropdown overlay={addComposerMenu}>
+        <Dropdown menu={menuProps}>
           <Button>Add +</Button>
         </Dropdown>
       </div>

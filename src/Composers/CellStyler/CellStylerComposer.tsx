@@ -60,22 +60,18 @@ export const CellStylerEditor = ({
     });
   };
 
-  const addStylerMenu = (
-    <Menu onClick={handleNewStyler}>
-      {STYLER_EDITOR_KEYS.map((k) => {
-        return (
-          <Menu.Item
-            key={k}
-            disabled={cellStylerParam.stylerDescriptors.some(
-              (f) => f.type === CELL_STYLER_EDITOR_KEY_PREFIX + k
-            )}
-          >
-            {k}
-          </Menu.Item>
-        );
-      })}
-    </Menu>
-  );
+  const addStylerItems = STYLER_EDITOR_KEYS.map((k) => ({
+    label: k,
+    key: k,
+    disabled: cellStylerParam.stylerDescriptors.some(
+      (f) => f.type === CELL_STYLER_EDITOR_KEY_PREFIX + k
+    ),
+  }));
+
+  const menuProps = {
+    items: addStylerItems,
+    onClick: handleNewStyler,
+  };
 
   const stylerRenderers = cellStylerParam.stylerDescriptors.map((s) => {
     const stylerType = s.type;
@@ -115,7 +111,7 @@ export const CellStylerEditor = ({
     <div>
       <div>
         Cell Styler
-        <Dropdown overlay={addStylerMenu}>
+        <Dropdown menu={menuProps}>
           <Button icon={"+"} />
         </Dropdown>
       </div>
