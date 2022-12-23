@@ -1,4 +1,6 @@
-import { Radio } from "antd";
+import { RadioButtonGroup, RadioButton } from "@salt-ds/lab";
+import { Button, SaltProvider } from "@salt-ds/core";
+
 import { useMemo, useState } from "react";
 import ReactJson from "react-json-view";
 import "./App.css";
@@ -66,35 +68,53 @@ function App() {
       <AntdTablePreview rowData={rowData} colDescriptors={colDescriptors} />
     );
   return (
-    <div className="App">
-      <div className="LeftColumn">
-        <div className="LeftColumn-TopPanel">
-          <ColDescriptorEditor
-            colDescriptors={colDescriptors}
-            setColDescriptors={setColDescriptors}
-            dataFields={dataFields}
-          />
+    <SaltProvider applyClassesTo="root">
+      <div className="App">
+        <div className="LeftColumn">
+          <div className="LeftColumn-TopPanel">
+            <ColDescriptorEditor
+              colDescriptors={colDescriptors}
+              setColDescriptors={setColDescriptors}
+              dataFields={dataFields}
+            />
+          </div>
+          <div className="LeftColumn-BottomPanel">
+            <DataInput onDataChanged={setRowData} />
+          </div>
         </div>
-        <div className="LeftColumn-BottomPanel">
-          <DataInput onDataChanged={setRowData} />
+        <div className="RightColumn">
+          <div className="RightColumn-TopPanel">{previewGrid}</div>
+          <div className="RightColumn-BottomPanel">
+            {/* <label htmlFor="grid-preview-radio-group-id">Grid preview: </label> */}
+            {/* <Radio.Group
+              id="grid-preview-radio-group-id"
+              options={gridPreviewOptions}
+              onChange={(e) => setPreviewOpt(e.target.value)}
+              value={previewOpt}
+            /> */}
+
+            <RadioButtonGroup
+              legend={"Grid preview"}
+              name={"Name"}
+              row
+              onChange={(e) => setPreviewOpt(e.currentTarget.value)}
+            >
+              {gridPreviewOptions.map((opt) => (
+                <RadioButton
+                  key={opt}
+                  label={opt}
+                  value={opt}
+                  checked={opt === previewOpt}
+                />
+              ))}
+            </RadioButtonGroup>
+            <div>Debug Column Descriptors</div>
+            <ReactJson src={colDescriptors} />
+            {/* <div>{JSON.stringify(colDescriptors)}</div> */}
+          </div>
         </div>
       </div>
-      <div className="RightColumn">
-        <div className="RightColumn-TopPanel">{previewGrid}</div>
-        <div className="RightColumn-BottomPanel">
-          <label htmlFor="grid-preview-radio-group-id">Grid preview: </label>
-          <Radio.Group
-            id="grid-preview-radio-group-id"
-            options={gridPreviewOptions}
-            onChange={(e) => setPreviewOpt(e.target.value)}
-            value={previewOpt}
-          />
-          <div>Debug Column Descriptors</div>
-          <ReactJson src={colDescriptors} />
-          {/* <div>{JSON.stringify(colDescriptors)}</div> */}
-        </div>
-      </div>
-    </div>
+    </SaltProvider>
   );
 }
 

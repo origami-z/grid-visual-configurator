@@ -76,8 +76,13 @@ const SortableComposer = <T extends {}>(
   input: T,
   param: SortableComposerParam
 ) => {
-  console.warn("Unsupported sortable");
-  return input;
+  return {
+    ...input,
+    sorter: param.sortable
+      ? (a: any, b: any) =>
+          a[(input as any).dataIndex] - b[(input as any).dataIndex]
+      : undefined,
+  };
 };
 
 const GRID_EDITOR_MAP = {
