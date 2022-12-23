@@ -41,22 +41,18 @@ export const ValueFormatterEditor = ({
     });
   };
 
-  const addFormatterMenu = (
-    <Menu onClick={handleNewFormatter}>
-      {FORMATTER_EDITOR_KEYS.map((k) => {
-        return (
-          <Menu.Item
-            key={k}
-            disabled={param.formatterDescriptors.some(
-              (f) => f.type === FORMATTER_EDITOR_KEY_PREFIX + k
-            )}
-          >
-            {k}
-          </Menu.Item>
-        );
-      })}
-    </Menu>
-  );
+  const addFormatterItems = FORMATTER_EDITOR_KEYS.map((k) => ({
+    label: k,
+    key: k,
+    disabled: param.formatterDescriptors.some(
+      (f) => f.type === FORMATTER_EDITOR_KEY_PREFIX + k
+    ),
+  }));
+
+  const menuProps = {
+    items: addFormatterItems,
+    onClick: handleNewFormatter,
+  };
 
   const formatterRenderers = param.formatterDescriptors.map((f) => {
     const ftType = f.type;
@@ -96,7 +92,7 @@ export const ValueFormatterEditor = ({
     <div>
       <div>
         Value Formatter
-        <Dropdown overlay={addFormatterMenu}>
+        <Dropdown menu={menuProps}>
           <Button icon={"+"} />
         </Dropdown>
       </div>

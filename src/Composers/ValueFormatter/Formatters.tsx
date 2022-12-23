@@ -20,7 +20,7 @@ export const FixedDecimalPlacesEditor = (props: {
         Decimal Places
         <InputNumber
           value={props.param?.dp}
-          onChange={(newValue) => props.onParamChange?.({ dp: newValue })}
+          onChange={(newValue) => props.onParamChange?.({ dp: newValue || 0 })}
         />
       </label>
     </div>

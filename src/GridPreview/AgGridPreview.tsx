@@ -172,7 +172,6 @@ export const AgGridPreview = (props: {
       <AgGridReact
         columnDefs={colDefFromColDescriptors}
         rowData={props.rowData}
-        reactUi
       />
     </div>
   );
