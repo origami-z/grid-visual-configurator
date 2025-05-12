@@ -13,6 +13,7 @@ import {
 import { DataInput } from "./DataInput";
 import { AgGridPreview } from "./GridPreview/AgGridPreview";
 import { AntdTablePreview } from "./GridPreview/AntdTablePreview";
+import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 
 const defaultColDescriptor: GenericColDescriptor[] = [
   [{ type: FIELD_TYPE, param: { field: "make" } }],
@@ -67,33 +68,44 @@ function App() {
     );
   return (
     <div className="App">
-      <div className="LeftColumn">
-        <div className="LeftColumn-TopPanel">
-          <ColDescriptorEditor
-            colDescriptors={colDescriptors}
-            setColDescriptors={setColDescriptors}
-            dataFields={dataFields}
-          />
-        </div>
-        <div className="LeftColumn-BottomPanel">
-          <DataInput onDataChanged={setRowData} />
-        </div>
-      </div>
-      <div className="RightColumn">
-        <div className="RightColumn-TopPanel">{previewGrid}</div>
-        <div className="RightColumn-BottomPanel">
-          <label htmlFor="grid-preview-radio-group-id">Grid preview: </label>
-          <Radio.Group
-            id="grid-preview-radio-group-id"
-            options={gridPreviewOptions}
-            onChange={(e) => setPreviewOpt(e.target.value)}
-            value={previewOpt}
-          />
-          <div>Debug Column Descriptors</div>
-          <ReactJson src={colDescriptors} />
-          {/* <div>{JSON.stringify(colDescriptors)}</div> */}
-        </div>
-      </div>
+      <PanelGroup direction="horizontal">
+        <Panel defaultSize={50}>
+          <PanelGroup direction="vertical">
+            <Panel defaultSize={70}>
+              <ColDescriptorEditor
+                colDescriptors={colDescriptors}
+                setColDescriptors={setColDescriptors}
+                dataFields={dataFields}
+              />
+            </Panel>
+            <PanelResizeHandle />
+            <Panel>
+              <DataInput onDataChanged={setRowData} />
+            </Panel>
+          </PanelGroup>
+        </Panel>
+        <PanelResizeHandle />
+        <Panel defaultSize={50}>
+          <PanelGroup direction="vertical">
+            <Panel defaultSize={70}>{previewGrid}</Panel>
+            <PanelResizeHandle />
+            <Panel>
+              <label htmlFor="grid-preview-radio-group-id">
+                Grid preview:{" "}
+              </label>
+              <Radio.Group
+                id="grid-preview-radio-group-id"
+                options={gridPreviewOptions}
+                onChange={(e) => setPreviewOpt(e.target.value)}
+                value={previewOpt}
+              />
+              <div>Debug Column Descriptors</div>
+              <ReactJson src={colDescriptors} />
+              {/* <div>{JSON.stringify(colDescriptors)}</div> */}
+            </Panel>
+          </PanelGroup>
+        </Panel>
+      </PanelGroup>
     </div>
   );
 }

@@ -1650,6 +1650,7 @@ __metadata:
     react: ^18.3.0
     react-dom: ^18.3.0
     react-json-view: ^1.21.3
+    react-resizable-panels: ^3.0.1
     typescript: ^5.8.3
     vite: ^6.3.5
   languageName: unknown
@@ -2873,6 +2874,16 @@ __metadata:
   version: 0.17.0
   resolution: "react-refresh@npm:0.17.0"
   checksum: e9d23a70543edde879263976d7909cd30c6f698fa372a1240142cf7c8bf99e0396378b9c07c2d39c3a10261d7ba07dc49f990cd8f1ac7b88952e99040a0be5e9
+  languageName: node
+  linkType: hard
+
+"react-resizable-panels@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "react-resizable-panels@npm:3.0.1"
+  peerDependencies:
+    react: ^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+    react-dom: ^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+  checksum: e2679e5a12309b8e0f9c6a54026068effe8a9f04510e77f50864ce3a5ab64cbcd47c5c332f1a4764b439e68f2b925cc8e9253f8101af456338f980c692a56c51
   languageName: node
   linkType: hard
 

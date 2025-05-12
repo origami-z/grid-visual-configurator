@@ -168,7 +168,7 @@ export const AgGridPreview = (props: {
   );
 
   return (
-    <div className="ag-theme-alpine" style={{ flex: 1 }}>
+    <div className="ag-theme-alpine" style={{ flex: 1, height: "100%" }}>
       <AgGridReact
         columnDefs={colDefFromColDescriptors}
         rowData={props.rowData}
