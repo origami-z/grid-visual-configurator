@@ -1,4 +1,13 @@
-import { Button, Dropdown, Menu, MenuProps } from "antd";
+import {
+  Button,
+  FlexLayout,
+  Menu,
+  MenuItem,
+  MenuPanel,
+  MenuTrigger,
+  StackLayout,
+  Text,
+} from "@salt-ds/core";
 import { createElement, Dispatch, SetStateAction } from "react";
 import "./ColDescriptorEditor.css";
 import {
@@ -8,6 +17,7 @@ import {
   GRID_EDITOR_MAP_TYPE_KEY,
 } from "./Composers";
 import { DataFieldsContext } from "./DataFieldsContext";
+import { AddIcon, CloseIcon, CloseSmallIcon } from "@salt-ds/icons";
 
 export const ColDescriptorEditor = ({
   colDescriptors,
@@ -34,9 +44,7 @@ export const ColDescriptorEditor = ({
   };
 
   const columnsToRender = colDescriptors.map((colDescriptor, colIndex) => {
-    const handleNewComposer: MenuProps["onClick"] = (e) => {
-      const selectedKey = e.key as GRID_EDITOR_MAP_TYPE_KEY;
-
+    const handleNewComposer = (selectedKey: GRID_EDITOR_MAP_TYPE_KEY) => {
       setColDescriptors((prevColDescriptors) =>
         prevColDescriptors.map((prevColDescriptor, prevColIndex) => {
           if (
@@ -54,23 +62,33 @@ export const ColDescriptorEditor = ({
       );
     };
 
-    const addComposerItems = Object.keys(GRID_EDITOR_MAP).map((k) => ({
-      label: k,
-      key: k,
-      disabled: colDescriptor.some((c) => c.type === k),
-    }));
-
-    const menuProps = {
-      items: addComposerItems,
-      onClick: handleNewComposer,
-    };
+    const addComposerMenuItems = Object.keys(GRID_EDITOR_MAP).map((k) => (
+      <MenuItem
+        onClick={() => handleNewComposer(k as GRID_EDITOR_MAP_TYPE_KEY)}
+        key={k}
+        disabled={colDescriptor.some((c) => c.type === k)}
+      >
+        {k}
+      </MenuItem>
+    ));
 
     return (
-      <div key={colIndex} className="ColDescriptorEditor-Column">
-        <div className="ColDescriptorEditor-ColumnHeader">
-          <div>Column {colIndex + 1}</div>
-          <Button icon={"x"} onClick={() => removeColumnAtIndex(colIndex)} />
-        </div>
+      <StackLayout
+        gap={1}
+        key={colIndex}
+        align="start"
+        className="ColDescriptorEditor-Column"
+      >
+        <FlexLayout gap={0.5} className="ColDescriptorEditor-ColumnHeader">
+          <Text styleAs="h4">Column {colIndex + 1}</Text>
+          <Button
+            appearance="transparent"
+            aria-label="Remove column"
+            onClick={() => removeColumnAtIndex(colIndex)}
+          >
+            <CloseSmallIcon />
+          </Button>
+        </FlexLayout>
         {colDescriptor.map((composer, composerIndex) => {
           const key = `column-${colIndex}-editor-${composerIndex}`;
 
@@ -123,31 +141,41 @@ export const ColDescriptorEditor = ({
           };
 
           return (
-            <div
+            <FlexLayout
+              gap={0.5}
               className="ColDescriptorEditor-ColumnRow"
               key={`${key}-container`}
             >
               <Button
-                icon={"x"}
                 onClick={removeDescriptor}
                 aria-label="remove composer"
-              />{" "}
+                appearance="transparent"
+              >
+                <CloseSmallIcon />
+              </Button>{" "}
               {descriptorEditor}
-            </div>
+            </FlexLayout>
           );
         })}
 
-        <Dropdown menu={menuProps}>
-          <Button>Add +</Button>
-        </Dropdown>
-      </div>
+        <Menu>
+          <MenuTrigger>
+            <Button appearance="bordered">
+              Add <AddIcon aria-hidden />
+            </Button>
+          </MenuTrigger>
+          <MenuPanel>{addComposerMenuItems}</MenuPanel>
+        </Menu>
+      </StackLayout>
     );
   });
   return (
     <DataFieldsContext.Provider value={dataFields}>
-      <div>
-        <Button onClick={addNewColumn}>New Column</Button>
-        <div className="ColDescriptorEditor-Columns">{columnsToRender}</div>
+      <div className="ColDescriptorEditor-Columns">
+        {columnsToRender}
+        <Button onClick={addNewColumn} appearance="bordered">
+          New Column
+        </Button>
       </div>
     </DataFieldsContext.Provider>
   );

@@ -1,4 +1,4 @@
-import { Switch } from "antd";
+import { FormField, FormFieldLabel, Switch } from "@salt-ds/core";
 
 export const SORTABLE_TYPE = "Grid.Sortable" as const;
 export interface SortableComposerParam {
@@ -18,13 +18,15 @@ export const SortableEditor = (props: {
 }) => {
   return (
     <div>
-      <label>
-        Sortable
+      <FormField labelPlacement="left">
+        <FormFieldLabel>Sortable</FormFieldLabel>
         <Switch
           checked={props.param?.sortable}
-          onChange={(checked) => props.onParamChange?.({ sortable: checked })}
+          onChange={(e) =>
+            props.onParamChange?.({ sortable: e.target.checked })
+          }
         />
-      </label>
+      </FormField>
     </div>
   );
 };

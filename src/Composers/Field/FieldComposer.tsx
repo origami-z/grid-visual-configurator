@@ -1,8 +1,6 @@
 import { useContext } from "react";
 import { DataFieldsContext } from "../../DataFieldsContext";
-
-import { Select } from "antd";
-const { Option } = Select;
+import { FlexLayout, ComboBox, Option } from "@salt-ds/core";
 
 export const FIELD_TYPE = "Grid.Field" as const;
 export interface FieldComposerParam {
@@ -22,8 +20,7 @@ export const FieldEditor = (props: {
 }) => {
   const dataFields = useContext(DataFieldsContext);
   const fieldValue = props.param?.field;
-  const selectOptions = dataFields.map((d) => ({ value: d, label: d }));
-  console.log({ selectOptions });
+  // console.log({ selectOptions });
   const inputRenderer =
     dataFields.length === 0 ? (
       // Default or data error
@@ -34,20 +31,30 @@ export const FieldEditor = (props: {
         }
       />
     ) : (
-      <Select
+      <ComboBox
+        bordered
         value={fieldValue ? fieldValue : undefined}
-        onChange={(e) => props.onParamChange?.({ field: e })}
-        showSearch
+        selected={fieldValue ? [fieldValue] : undefined}
+        onSelectionChange={(e, [newSelected]) =>
+          props.onParamChange?.({ field: newSelected })
+        }
         style={{ width: 100 }}
         placeholder="Search"
-        options={selectOptions}
-      />
+      >
+        {dataFields.map((d) => (
+          <Option value={d} key={d}>
+            {d}
+          </Option>
+        ))}
+      </ComboBox>
     );
   return (
     <div>
       <label>
-        Field
-        {inputRenderer}
+        <FlexLayout gap={0.5} align="center">
+          Field
+          {inputRenderer}
+        </FlexLayout>
       </label>
     </div>
   );

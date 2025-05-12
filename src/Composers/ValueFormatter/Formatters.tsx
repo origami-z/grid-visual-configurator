@@ -1,4 +1,4 @@
-import { InputNumber } from "antd";
+import { Input } from "@salt-ds/core";
 
 export const DIVIDE_BY_THOUSAND_TYPE =
   "Grid.ValueFormatter.DivideByThousand" as const;
@@ -18,9 +18,16 @@ export const FixedDecimalPlacesEditor = (props: {
     <div>
       <label>
         Decimal Places
-        <InputNumber
+        <Input
+          style={{ width: 60 }}
           value={props.param?.dp}
-          onChange={(newValue) => props.onParamChange?.({ dp: newValue || 0 })}
+          inputProps={{
+            type: "number",
+            onChange: (e) =>
+              props.onParamChange?.({
+                dp: Number.parseInt(e.target.value) || 0,
+              }),
+          }}
         />
       </label>
     </div>
@@ -39,6 +46,7 @@ export const SuffixByEditor = (props: {
     <label>
       Suffix
       <input
+        style={{ width: 60 }}
         value={props.param?.suffix}
         onChange={(e) =>
           props.onParamChange?.({ suffix: e.currentTarget.value })

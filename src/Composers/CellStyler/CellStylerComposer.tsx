@@ -1,5 +1,13 @@
 import { createElement } from "react";
-import { Menu, Dropdown, Button, MenuProps } from "antd";
+import {
+  Menu,
+  Button,
+  MenuItem,
+  FlexLayout,
+  Label,
+  MenuTrigger,
+  MenuPanel,
+} from "@salt-ds/core";
 import {
   BoldFontDefaultDescriptor,
   BoldFontEditor,
@@ -8,6 +16,7 @@ import {
   TextColorEditor,
   TEXT_COLOR_TYPE,
 } from "./Stylers";
+import { AddIcon, CloseSmallIcon } from "@salt-ds/icons";
 
 export const CELL_STYLER_TYPE = "Grid.CellStyler" as const;
 export const CELL_STYLER_EDITOR_KEY_PREFIX = "Grid.CellStyler." as const;
@@ -49,28 +58,13 @@ export const CellStylerEditor = ({
   param?: CellStylerComposerParam;
   onParamChange?: (newParam: CellStylerComposerParam) => void;
 }) => {
-  const handleNewStyler: MenuProps["onClick"] = (e) => {
-    const selectedKey = (CELL_STYLER_EDITOR_KEY_PREFIX +
-      e.key) as keyof typeof STYLER_EDITOR_MAP;
+  const handleNewStyler = (selectedKey: keyof typeof STYLER_EDITOR_MAP) => {
     onCellStylerParamChange?.({
       stylerDescriptors: [
         ...cellStylerParam.stylerDescriptors,
         STYLER_EDITOR_MAP[selectedKey].defaultDescriptor,
       ],
     });
-  };
-
-  const addStylerItems = STYLER_EDITOR_KEYS.map((k) => ({
-    label: k,
-    key: k,
-    disabled: cellStylerParam.stylerDescriptors.some(
-      (f) => f.type === CELL_STYLER_EDITOR_KEY_PREFIX + k
-    ),
-  }));
-
-  const menuProps = {
-    items: addStylerItems,
-    onClick: handleNewStyler,
   };
 
   const stylerRenderers = cellStylerParam.stylerDescriptors.map((s) => {
@@ -87,10 +81,14 @@ export const CellStylerEditor = ({
       });
     };
     return (
-      <div key={stylerType} className="GridEditor-CellStylerRenderer">
+      <FlexLayout
+        gap={0.5}
+        align="center"
+        key={stylerType}
+        className="GridEditor-CellStylerRenderer"
+      >
         <Button
           aria-label="remove styler"
-          icon={"x"}
           onClick={() =>
             onCellStylerParamChange?.({
               stylerDescriptors: cellStylerParam.stylerDescriptors.filter(
@@ -98,23 +96,48 @@ export const CellStylerEditor = ({
               ),
             })
           }
-        />
+          appearance="transparent"
+        >
+          <CloseSmallIcon />
+        </Button>
         {createElement(STYLER_EDITOR_MAP[stylerType].editor as any, {
           param: s.param,
           onParamChange,
         })}
-      </div>
+      </FlexLayout>
     );
   });
 
   return (
     <div>
-      <div>
-        Cell Styler
-        <Dropdown menu={menuProps}>
-          <Button icon={"+"} />
-        </Dropdown>
-      </div>
+      <FlexLayout gap={0.5} align="center">
+        <Label>Cell Styler</Label>
+        <Menu>
+          <MenuTrigger>
+            <Button aria-label="Add cell styler" appearance="transparent">
+              <AddIcon />
+            </Button>
+          </MenuTrigger>
+          <MenuPanel>
+            {STYLER_EDITOR_KEYS.map((k) => (
+              <MenuItem
+                key={k}
+                disabled={cellStylerParam.stylerDescriptors.some(
+                  (f) => f.type === CELL_STYLER_EDITOR_KEY_PREFIX + k
+                )}
+                onClick={() =>
+                  handleNewStyler(
+                    (CELL_STYLER_EDITOR_KEY_PREFIX +
+                      k) as keyof typeof STYLER_EDITOR_MAP
+                  )
+                }
+              >
+                {k}
+              </MenuItem>
+            ))}
+          </MenuPanel>
+        </Menu>
+      </FlexLayout>
       {stylerRenderers}
     </div>
   );

@@ -1,10 +1,19 @@
 import { createElement } from "react";
-import { Menu, Dropdown, Button, MenuProps } from "antd";
+import {
+  Menu,
+  Button,
+  MenuItem,
+  MenuTrigger,
+  MenuPanel,
+  FlexLayout,
+  Label,
+} from "@salt-ds/core";
 import {
   FORMATTER_EDITOR_KEYS,
   FORMATTER_EDITOR_KEY_PREFIX,
   FORMATTER_EDITOR_MAP,
 } from "./Formatters";
+import { AddIcon, CloseSmallIcon } from "@salt-ds/icons";
 
 export const VALUE_FORMATTER_TYPE = "Grid.ValueFormatter" as const;
 export interface ValueFormatterComposerParam {
@@ -30,30 +39,6 @@ export const ValueFormatterEditor = ({
   param?: ValueFormatterComposerParam;
   onParamChange?: (newParam: ValueFormatterComposerParam) => void;
 }) => {
-  const handleNewFormatter: MenuProps["onClick"] = (e) => {
-    const selectedKey = (FORMATTER_EDITOR_KEY_PREFIX +
-      e.key) as keyof typeof FORMATTER_EDITOR_MAP;
-    onValueFormatterParamChange?.({
-      formatterDescriptors: [
-        ...param.formatterDescriptors,
-        FORMATTER_EDITOR_MAP[selectedKey].defaultKey,
-      ],
-    });
-  };
-
-  const addFormatterItems = FORMATTER_EDITOR_KEYS.map((k) => ({
-    label: k,
-    key: k,
-    disabled: param.formatterDescriptors.some(
-      (f) => f.type === FORMATTER_EDITOR_KEY_PREFIX + k
-    ),
-  }));
-
-  const menuProps = {
-    items: addFormatterItems,
-    onClick: handleNewFormatter,
-  };
-
   const formatterRenderers = param.formatterDescriptors.map((f) => {
     const ftType = f.type;
     const onParamChange = (newParam: any) => {
@@ -68,10 +53,15 @@ export const ValueFormatterEditor = ({
       });
     };
     return (
-      <div key={ftType} className="GridEditor-FormatterRenderer">
+      <FlexLayout
+        gap={0.5}
+        align="center"
+        key={ftType}
+        className="GridEditor-FormatterRenderer"
+      >
         <Button
+          appearance="transparent"
           aria-label="remove formatter"
-          icon={"x"}
           onClick={() =>
             onValueFormatterParamChange?.({
               formatterDescriptors: param.formatterDescriptors.filter(
@@ -79,23 +69,51 @@ export const ValueFormatterEditor = ({
               ),
             })
           }
-        />
+        >
+          <CloseSmallIcon />
+        </Button>
         {createElement(FORMATTER_EDITOR_MAP[ftType].editor as any, {
           param: f.param,
           onParamChange,
         })}
-      </div>
+      </FlexLayout>
     );
   });
 
   return (
     <div>
-      <div>
-        Value Formatter
-        <Dropdown menu={menuProps}>
-          <Button icon={"+"} />
-        </Dropdown>
-      </div>
+      <FlexLayout align="center" gap={0.5}>
+        <Label>Value Formatter</Label>
+        <Menu>
+          <MenuTrigger>
+            <Button appearance="transparent" aria-label="add value formatter">
+              <AddIcon />
+            </Button>
+          </MenuTrigger>
+          <MenuPanel>
+            {FORMATTER_EDITOR_KEYS.map((k) => (
+              <MenuItem
+                key={k}
+                disabled={param.formatterDescriptors.some(
+                  (f) => f.type === FORMATTER_EDITOR_KEY_PREFIX + k
+                )}
+                onClick={() => {
+                  const selectedKey = (FORMATTER_EDITOR_KEY_PREFIX +
+                    k) as keyof typeof FORMATTER_EDITOR_MAP;
+                  onValueFormatterParamChange?.({
+                    formatterDescriptors: [
+                      ...param.formatterDescriptors,
+                      FORMATTER_EDITOR_MAP[selectedKey].defaultKey,
+                    ],
+                  });
+                }}
+              >
+                {k}
+              </MenuItem>
+            ))}
+          </MenuPanel>
+        </Menu>
+      </FlexLayout>
       {formatterRenderers}
     </div>
   );

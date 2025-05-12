@@ -471,6 +471,58 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@floating-ui/core@npm:^1.7.0":
+  version: 1.7.0
+  resolution: "@floating-ui/core@npm:1.7.0"
+  dependencies:
+    "@floating-ui/utils": ^0.2.9
+  checksum: 428a90e49024cfc9ac2276f6f28501aa06be8946a5619eed83de30084d35ee10a08c70fb2bde06f21d18d90714b7d3813770b5416d0d13e2d201616c49a4f611
+  languageName: node
+  linkType: hard
+
+"@floating-ui/dom@npm:^1.0.0":
+  version: 1.7.0
+  resolution: "@floating-ui/dom@npm:1.7.0"
+  dependencies:
+    "@floating-ui/core": ^1.7.0
+    "@floating-ui/utils": ^0.2.9
+  checksum: 86e35e0d9b849476c0a29623870146b5f0c94b6fb131d14e399b235ea01a8b6c2d2545682fa01364f2a7f81bbf8e58b4947241eb5cada164eeaca2df22dbc625
+  languageName: node
+  linkType: hard
+
+"@floating-ui/react-dom@npm:^2.1.2":
+  version: 2.1.2
+  resolution: "@floating-ui/react-dom@npm:2.1.2"
+  dependencies:
+    "@floating-ui/dom": ^1.0.0
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 25bb031686e23062ed4222a8946e76b3f9021d40a48437bd747233c4964a766204b8a55f34fa8b259839af96e60db7c6e3714d81f1de06914294f90e86ffbc48
+  languageName: node
+  linkType: hard
+
+"@floating-ui/react@npm:^0.26.28":
+  version: 0.26.28
+  resolution: "@floating-ui/react@npm:0.26.28"
+  dependencies:
+    "@floating-ui/react-dom": ^2.1.2
+    "@floating-ui/utils": ^0.2.8
+    tabbable: ^6.0.0
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 1bfcccdb1f388ceb0075dc3e46934f4f04ef10bff2f971e1bf79067391c8729b366025caca0a42f5ca80854820a621a9edecbacdc046c33eb428f508fd6ce1f3
+  languageName: node
+  linkType: hard
+
+"@floating-ui/utils@npm:^0.2.8, @floating-ui/utils@npm:^0.2.9":
+  version: 0.2.9
+  resolution: "@floating-ui/utils@npm:0.2.9"
+  checksum: d518b80cec5a323e54a069a1dd99a20f8221a4853ed98ac16c75275a0cc22f75de4f8ac5b121b4f8990bd45da7ad1fb015b9a1e4bac27bb1cd62444af84e9784
+  languageName: node
+  linkType: hard
+
 "@gar/promisify@npm:^1.0.1":
   version: 1.1.2
   resolution: "@gar/promisify@npm:1.1.2"
@@ -590,6 +642,79 @@ __metadata:
     react: ">=16.9.0"
     react-dom: ">=16.9.0"
   checksum: 93a817ad050082f496ee057572c1bd6a693bfe51fde179f25df5af77ef9496d12492f753dabe515bfcbff8896c5cdb7f314eed16841d8fbb2c0145b22b3e8270
+  languageName: node
+  linkType: hard
+
+"@salt-ds/core@npm:^1.45.0":
+  version: 1.45.0
+  resolution: "@salt-ds/core@npm:1.45.0"
+  dependencies:
+    "@floating-ui/react": ^0.26.28
+    "@salt-ds/icons": ^1.13.2
+    "@salt-ds/styles": 0.2.1
+    "@salt-ds/window": 0.1.1
+    clsx: ^2.0.0
+  peerDependencies:
+    "@types/react": ">=16.14.0"
+    react: ">=16.14.0"
+    react-dom: ">=16.14.0"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 710a810ef34a3500318ff940696b7f5443f1889d4c5f49540b411581494ab6564f5f13fa88b1fbc2412093b4f445ed5a98e73a7a6cceef0a1c5118a6eb0f8915
+  languageName: node
+  linkType: hard
+
+"@salt-ds/icons@npm:^1.13.2":
+  version: 1.13.2
+  resolution: "@salt-ds/icons@npm:1.13.2"
+  dependencies:
+    "@salt-ds/styles": 0.2.1
+    "@salt-ds/window": 0.1.1
+    clsx: ^2.0.0
+  peerDependencies:
+    "@types/react": ">=16.14.0"
+    react: ">=16.14.0"
+    react-dom: ">=16.14.0"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 0511ee54ac17ece25b6dc0f2b800ba7d3fd24ff229ae07e88dc8da68ecc32e1c4458f9f3d74262a19ce79405d2cd5b0cac359122c8ced8f5a555d490118685ac
+  languageName: node
+  linkType: hard
+
+"@salt-ds/styles@npm:0.2.1":
+  version: 0.2.1
+  resolution: "@salt-ds/styles@npm:0.2.1"
+  peerDependencies:
+    "@types/react": ">=16.14.0"
+    react: ">=16.14.0"
+    react-dom: ">=16.14.0"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 101eca77fa65e47ca1acdbdcb444d7b49a9e821ce0675d78689962136042c11d78e7d0c6585b111ae0dad3d251b143f97e2f9e249bd69c48d9db30002d4e3b27
+  languageName: node
+  linkType: hard
+
+"@salt-ds/theme@npm:^1.29.0":
+  version: 1.29.0
+  resolution: "@salt-ds/theme@npm:1.29.0"
+  checksum: 87f490ba27b21ec42b791d8f3078c869d27987f2c0997188698052de003a897284ab0fec5f9748b7acf778bb49cc4918b65bedb7cf80e2c7a613889c0059cb2c
+  languageName: node
+  linkType: hard
+
+"@salt-ds/window@npm:0.1.1":
+  version: 0.1.1
+  resolution: "@salt-ds/window@npm:0.1.1"
+  peerDependencies:
+    "@types/react": ">=16.14.0"
+    react: ">=16.14.0"
+    react-dom: ">=16.14.0"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 66408cc1c982b2a5299e4defcfb55cc085e7cd070886693cdfc6683fd868d0c39354b419add3db52f693630a0e5b20e62dc92671ae32e863d94db9109fb10aae
   languageName: node
   linkType: hard
 
@@ -905,6 +1030,13 @@ __metadata:
   version: 2.2.0
   resolution: "clean-stack@npm:2.2.0"
   checksum: 2ac8cd2b2f5ec986a3c743935ec85b07bc174d5421a5efc8017e1f146a1cf5f781ae962618f416352103b32c9cd7e203276e8c28241bbe946160cab16149fb68
+  languageName: node
+  linkType: hard
+
+"clsx@npm:^2.0.0":
+  version: 2.1.1
+  resolution: "clsx@npm:2.1.1"
+  checksum: acd3e1ab9d8a433ecb3cc2f6a05ab95fe50b4a3cfc5ba47abb6cbf3754585fcb87b84e90c822a1f256c4198e3b41c7f6c391577ffc8678ad587fc0976b24fd57
   languageName: node
   linkType: hard
 
@@ -1272,6 +1404,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "grid-visual-generator@workspace:."
   dependencies:
+    "@salt-ds/core": ^1.45.0
+    "@salt-ds/icons": ^1.13.2
+    "@salt-ds/theme": ^1.29.0
     "@types/react": ^18.0.26
     "@types/react-dom": ^18.0.0
     "@vitejs/plugin-react": ^3.0.0
@@ -2759,6 +2894,13 @@ __metadata:
   version: 4.1.3
   resolution: "stylis@npm:4.1.3"
   checksum: d04dbffcb9bf2c5ca8d8dc09534203c75df3bf711d33973ea22038a99cc475412a350b661ebd99cbc01daa50d7eedcf0d130d121800eb7318759a197023442a6
+  languageName: node
+  linkType: hard
+
+"tabbable@npm:^6.0.0":
+  version: 6.2.0
+  resolution: "tabbable@npm:6.2.0"
+  checksum: f8440277d223949272c74bb627a3371be21735ca9ad34c2570f7e1752bd646ccfc23a9d8b1ee65d6561243f4134f5fbbf1ad6b39ac3c4b586554accaff4a1300
   languageName: node
   linkType: hard
 
