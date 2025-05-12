@@ -975,10 +975,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ag-grid-community@npm:^28.1.0":
-  version: 28.2.1
-  resolution: "ag-grid-community@npm:28.2.1"
-  checksum: f94acfd8f4f815e4f5028c8bc40f6cd06463f81eee9ea5a3450e9e580f5b682adbee86a1cec466aaa1e8c780e2606b1f1ab06455d38b62a83e768d4e479fcb38
+"ag-grid-community@npm:^31.0.0":
+  version: 31.3.4
+  resolution: "ag-grid-community@npm:31.3.4"
+  checksum: 725532245ad8ab5fe602177f8bbc671ea05ae2f9225c5a910675d2bc6af52e1ffd282fb9a0437e04ea993a4896ab427d6ba7d64fdf2db206def5dc89bbba660a
   languageName: node
   linkType: hard
 
@@ -1644,7 +1644,7 @@ __metadata:
     "@types/react": ^18.3.0
     "@types/react-dom": ^18.3.0
     "@vitejs/plugin-react": ^4.4.1
-    ag-grid-community: ^28.1.0
+    ag-grid-community: ^31.0.0
     ag-grid-react: ^28.1.0
     antd: ^5.0.0
     react: ^18.3.0
