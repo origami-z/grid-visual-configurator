@@ -2878,12 +2878,12 @@ __metadata:
   linkType: hard
 
 "react-resizable-panels@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "react-resizable-panels@npm:3.0.1"
+  version: 3.0.2
+  resolution: "react-resizable-panels@npm:3.0.2"
   peerDependencies:
     react: ^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
     react-dom: ^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
-  checksum: e2679e5a12309b8e0f9c6a54026068effe8a9f04510e77f50864ce3a5ab64cbcd47c5c332f1a4764b439e68f2b925cc8e9253f8101af456338f980c692a56c51
+  checksum: a11b2703993c0dab43d67d66eda6fc4d8df6e28ecf90950bc523dc474911b30f8e1bb9c1a128abdd5ea8ce4310783847395a7ec0c17eed218eba2f423660183e
   languageName: node
   linkType: hard
 
