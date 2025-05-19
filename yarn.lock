@@ -800,8 +800,8 @@ __metadata:
   linkType: hard
 
 "@salt-ds/core@npm:^1.45.0":
-  version: 1.45.0
-  resolution: "@salt-ds/core@npm:1.45.0"
+  version: 1.46.0
+  resolution: "@salt-ds/core@npm:1.46.0"
   dependencies:
     "@floating-ui/react": ^0.26.28
     "@salt-ds/icons": ^1.13.2
@@ -815,7 +815,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 710a810ef34a3500318ff940696b7f5443f1889d4c5f49540b411581494ab6564f5f13fa88b1fbc2412093b4f445ed5a98e73a7a6cceef0a1c5118a6eb0f8915
+  checksum: 255dc85046bae4873e5f15215feb8343b834a029e8c847d0bfaafe9371e298885752733859511d00d3a72ffd6c4b496ec1f35469cb4ee589d70579a98f1b9932
   languageName: node
   linkType: hard
 
