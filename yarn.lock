@@ -875,25 +875,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@salt-ds/icons@npm:^1.13.2":
-  version: 1.14.0
-  resolution: "@salt-ds/icons@npm:1.14.0"
-  dependencies:
-    "@salt-ds/styles": 0.2.1
-    "@salt-ds/window": 0.1.1
-    clsx: ^2.0.0
-  peerDependencies:
-    "@types/react": ">=16.14.0"
-    react: ">=16.14.0"
-    react-dom: ">=16.14.0"
-  peerDependenciesMeta:
-    "@types/react":
-      optional: true
-  checksum: de13c13eeab165b990ac415614c29d42f04b671a92b31880dc854dd16c464ab1caf3b64c9967c3464b0e1f009ae2f18fc0177886a758ff64991bd20c8ec1a871
-  languageName: node
-  linkType: hard
-
-"@salt-ds/icons@npm:^1.14.0":
+"@salt-ds/icons@npm:^1.13.2, @salt-ds/icons@npm:^1.14.0":
   version: 1.14.0
   resolution: "@salt-ds/icons@npm:1.14.0"
   dependencies:
@@ -2953,12 +2935,12 @@ __metadata:
   linkType: hard
 
 "react-resizable-panels@npm:^3.0.1":
-  version: 3.0.2
-  resolution: "react-resizable-panels@npm:3.0.2"
+  version: 3.0.3
+  resolution: "react-resizable-panels@npm:3.0.3"
   peerDependencies:
     react: ^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
     react-dom: ^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
-  checksum: a11b2703993c0dab43d67d66eda6fc4d8df6e28ecf90950bc523dc474911b30f8e1bb9c1a128abdd5ea8ce4310783847395a7ec0c17eed218eba2f423660183e
+  checksum: 6acd6c2c809786d0da473c4cd9507e41278f9b62515ea55e4d2e68702bed5b40227e2ca1260a29164847f0aaded3d31fa012e89b127d83a8ba23184b31996d12
   languageName: node
   linkType: hard
 
