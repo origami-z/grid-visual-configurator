@@ -908,9 +908,9 @@ __metadata:
   linkType: hard
 
 "@salt-ds/theme@npm:^1.29.0":
-  version: 1.29.0
-  resolution: "@salt-ds/theme@npm:1.29.0"
-  checksum: 87f490ba27b21ec42b791d8f3078c869d27987f2c0997188698052de003a897284ab0fec5f9748b7acf778bb49cc4918b65bedb7cf80e2c7a613889c0059cb2c
+  version: 1.30.0
+  resolution: "@salt-ds/theme@npm:1.30.0"
+  checksum: 8b527736d55eacbf5ef4c56fa43a5bf7278437d743cca2c395e74920cbfbce8c86bf59b7878a6274cbdd5b89a47a0917df721105ba6242c82a0442b1dbcdb313
   languageName: node
   linkType: hard
 
