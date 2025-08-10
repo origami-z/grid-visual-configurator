@@ -1104,6 +1104,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ag-charts-types@npm:12.1.1":
+  version: 12.1.1
+  resolution: "ag-charts-types@npm:12.1.1"
+  checksum: 34a1538add35e0446c4a41d3c3a6a9828ec529ec7cf375d49145535906c80d8cf76dd9b9e663dd39def0561ce8088b5add16861d471dde3c505cb3f58cb526af
+  languageName: node
+  linkType: hard
+
+"ag-grid-community@npm:34.1.1":
+  version: 34.1.1
+  resolution: "ag-grid-community@npm:34.1.1"
+  dependencies:
+    ag-charts-types: 12.1.1
+  checksum: 7868f2e7137ceacb43b60da4852a5b3cd6a79ff4ee6952d8c536ca23cee0baad6af8d60b7a5ee97f145a2c2c9a3ef10e5a3d28034b802a9910064421607d7ab2
+  languageName: node
+  linkType: hard
+
 "ag-grid-community@npm:^28.1.0":
   version: 28.2.1
   resolution: "ag-grid-community@npm:28.2.1"
@@ -1111,16 +1127,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ag-grid-react@npm:^28.1.0":
-  version: 28.2.1
-  resolution: "ag-grid-react@npm:28.2.1"
+"ag-grid-react@npm:^34.0.0":
+  version: 34.1.1
+  resolution: "ag-grid-react@npm:34.1.1"
   dependencies:
+    ag-grid-community: 34.1.1
     prop-types: ^15.8.1
   peerDependencies:
-    ag-grid-community: ~28.2.1
-    react: ^16.3.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.3.0 || ^17.0.0 || ^18.0.0
-  checksum: 75b6cfd891a0fd6dcd065fc69e80c9b7b20c6efee4f659714b5748f28b9d646868602770401cf840efd866b65e9e0683850842c70a95924aa6209c09bf849c15
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: f2ab6a3093ed8a61ab99923f26f66f9ffa378f9b56a0192beed25618d3957b90c35d366f3ec7164f240ac97e2729b1f1c5a1dc5dbc9bd60b37b416d13a2fd18a
   languageName: node
   linkType: hard
 
@@ -1786,7 +1802,7 @@ __metadata:
     "@types/react-dom": ^18.3.0
     "@vitejs/plugin-react": ^4.4.1
     ag-grid-community: ^28.1.0
-    ag-grid-react: ^28.1.0
+    ag-grid-react: ^34.0.0
     antd: ^5.0.0
     react: ^18.3.0
     react-dom: ^18.3.0
