@@ -928,14 +928,15 @@ __metadata:
   linkType: hard
 
 "@salt-ds/core@npm:^1.45.0":
-  version: 1.47.1
-  resolution: "@salt-ds/core@npm:1.47.1"
+  version: 1.49.0
+  resolution: "@salt-ds/core@npm:1.49.0"
   dependencies:
     "@floating-ui/react": ^0.26.28
     "@salt-ds/icons": ^1.14.0
     "@salt-ds/styles": 0.2.1
     "@salt-ds/window": 0.1.1
     clsx: ^2.0.0
+    use-sync-external-store: ^1.5.0
   peerDependencies:
     "@types/react": ">=16.14.0"
     react: ">=16.14.0"
@@ -943,7 +944,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: cd34f29a5011b87d67ba4ccb94cbcb71cb7ee33309026c88bc2ebad17661115df561e4f16a726b58cf3a8fa5d516382d5cec64e8845b7cb72e617ce74927968a
+  checksum: 02b37c3cc7b2a4571b669f30de9cdb2f4c4a02ed1b78b627640891573f2a651a806c3b1908267d068aec413a5866d00ae91ad69fe523da6610e7ce6d43de57ea
   languageName: node
   linkType: hard
 
@@ -3478,6 +3479,15 @@ __metadata:
     "@types/react":
       optional: true
   checksum: f0cb3a49119e14ed46db8a946b1aa17b838b8834c8a652bde314877ede6057c55b50654a97ee802597a5839c070180195e58ea3a756b7c33db7f540642f0ddea
+  languageName: node
+  linkType: hard
+
+"use-sync-external-store@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "use-sync-external-store@npm:1.5.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 5e639c9273200adb6985b512c96a3a02c458bc8ca1a72e91da9cdc6426144fc6538dca434b0f99b28fb1baabc82e1c383ba7900b25ccdcb43758fb058dc66c34
   languageName: node
   linkType: hard
 
