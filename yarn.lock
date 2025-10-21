@@ -948,8 +948,8 @@ __metadata:
   linkType: hard
 
 "@salt-ds/icons@npm:^1.13.2, @salt-ds/icons@npm:^1.14.0":
-  version: 1.14.0
-  resolution: "@salt-ds/icons@npm:1.14.0"
+  version: 1.15.0
+  resolution: "@salt-ds/icons@npm:1.15.0"
   dependencies:
     "@salt-ds/styles": 0.2.1
     "@salt-ds/window": 0.1.1
@@ -961,7 +961,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: de13c13eeab165b990ac415614c29d42f04b671a92b31880dc854dd16c464ab1caf3b64c9967c3464b0e1f009ae2f18fc0177886a758ff64991bd20c8ec1a871
+  checksum: b3dc703c1d1248efdbaaf65ebe1a04f05652c0bff5198df561955f96cf4df1ff27740dd6dfb00c72ccd3ded5741f006ee766cfef8481fa2a887c24b0bc2cc42b
   languageName: node
   linkType: hard
 
