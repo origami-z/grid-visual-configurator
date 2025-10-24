@@ -980,9 +980,9 @@ __metadata:
   linkType: hard
 
 "@salt-ds/theme@npm:^1.29.0":
-  version: 1.33.0
-  resolution: "@salt-ds/theme@npm:1.33.0"
-  checksum: 3a2a0f09c694a9d2ec7ac4b91d53d2ebbc694a9fdad639b541fb268cb675ace349f81ef7b9bc1380e1adb4986353a10b20bf6b9f64ebce44e581a74b241c0ba8
+  version: 1.35.0
+  resolution: "@salt-ds/theme@npm:1.35.0"
+  checksum: 3d6b8614f94d2d480f069b570a564fcbea6cfc94fb1b491e0bb37a831dad2d55336868e4df12b2c89f13596287261c9561d6cca14ebd7ac0cd2b62044f75d44b
   languageName: node
   linkType: hard
 
