@@ -1,6 +1,7 @@
 import { Radio } from "antd";
 import { useMemo, useState } from "react";
-import ReactJson from "react-json-view";
+import { JsonView, allExpanded, defaultStyles } from "react-json-view-lite";
+import "react-json-view-lite/dist/index.css";
 import "./App.css";
 import { ColDescriptorEditor } from "./ColDescriptorEditor";
 import {
@@ -100,7 +101,7 @@ function App() {
                 value={previewOpt}
               />
               <div>Debug Column Descriptors</div>
-              <ReactJson src={colDescriptors} />
+              <JsonView data={colDescriptors} shouldExpandNode={allExpanded} style={defaultStyles} />
               {/* <div>{JSON.stringify(colDescriptors)}</div> */}
             </Panel>
           </PanelGroup>
