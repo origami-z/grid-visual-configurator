@@ -1,4 +1,9 @@
-import { ValueFormatterFunc, CellStyle } from "ag-grid-community";
+import {
+  ValueFormatterFunc,
+  CellStyle,
+  AllCommunityModule,
+  ModuleRegistry,
+} from "ag-grid-community";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { AgGridReact } from "ag-grid-react";
@@ -24,6 +29,9 @@ import {
   CellStylerComposerParam,
   CELL_STYLER_TYPE,
 } from "../Composers";
+
+// AG Grid v33+ requires explicit module registration
+ModuleRegistry.registerModules([AllCommunityModule]);
 
 const FieldComposer = <T extends {}>(input: T, param: FieldComposerParam) => ({
   ...input,
@@ -168,11 +176,16 @@ export const AgGridPreview = (props: {
   );
 
   return (
-    <div className="ag-theme-alpine" style={{ flex: 1, height: "100%" }}>
-      <AgGridReact
-        columnDefs={colDefFromColDescriptors}
-        rowData={props.rowData}
-      />
+    <div style={{ position: "relative", width: "100%", height: "100%" }}>
+      <div
+        className="ag-theme-alpine"
+        style={{ position: "absolute", inset: 0 }}
+      >
+        <AgGridReact
+          columnDefs={colDefFromColDescriptors}
+          rowData={props.rowData}
+        />
+      </div>
     </div>
   );
 };
