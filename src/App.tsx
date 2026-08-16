@@ -14,7 +14,7 @@ import {
 import { DataInput } from "./DataInput";
 import { AgGridPreview } from "./GridPreview/AgGridPreview";
 import { AntdTablePreview } from "./GridPreview/AntdTablePreview";
-import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
+import { Group, Panel, Separator } from "react-resizable-panels";
 
 const defaultColDescriptor: GenericColDescriptor[] = [
   [{ type: FIELD_TYPE, param: { field: "make" } }],
@@ -69,27 +69,27 @@ function App() {
     );
   return (
     <div className="App">
-      <PanelGroup direction="horizontal">
-        <Panel defaultSize={50}>
-          <PanelGroup direction="vertical">
-            <Panel defaultSize={70}>
+      <Group orientation="horizontal">
+        <Panel defaultSize="50%">
+          <Group orientation="vertical">
+            <Panel defaultSize="70%">
               <ColDescriptorEditor
                 colDescriptors={colDescriptors}
                 setColDescriptors={setColDescriptors}
                 dataFields={dataFields}
               />
             </Panel>
-            <PanelResizeHandle />
+            <Separator />
             <Panel>
               <DataInput onDataChanged={setRowData} />
             </Panel>
-          </PanelGroup>
+          </Group>
         </Panel>
-        <PanelResizeHandle />
-        <Panel defaultSize={50}>
-          <PanelGroup direction="vertical">
-            <Panel defaultSize={70}>{previewGrid}</Panel>
-            <PanelResizeHandle />
+        <Separator />
+        <Panel defaultSize="50%">
+          <Group orientation="vertical">
+            <Panel defaultSize="70%">{previewGrid}</Panel>
+            <Separator />
             <Panel>
               <label htmlFor="grid-preview-radio-group-id">
                 Grid preview:{" "}
@@ -104,9 +104,9 @@ function App() {
               <JsonView data={colDescriptors} shouldExpandNode={allExpanded} style={defaultStyles} />
               {/* <div>{JSON.stringify(colDescriptors)}</div> */}
             </Panel>
-          </PanelGroup>
+          </Group>
         </Panel>
-      </PanelGroup>
+      </Group>
     </div>
   );
 }
