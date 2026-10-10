@@ -16,7 +16,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-json-view-lite": "^2.5.0",
-    "react-resizable-panels": "^3.0.1"
+    "react-resizable-panels": "^4.0.0"
   },
   "devDependencies": {
     "@types/react": "^19.0.0",
